@@ -79,6 +79,10 @@ class Promotion extends \yii\db\ActiveRecord
             'LIMIT_PER_CUSTOMER' => 'Limite Canje Cliente',
             'LIMIT_PER_DAY_CUSTOMER' => 'Limite Canje x Dia Cliente',
             'REDIMM' => 'Redención',
+            'ID_ENTERPRISE' => 'Empresa',
+            'SERIE' => 'Serie',
+            'S_INIT' => 'Inicial',
+            'S_END' => 'Final',            
             'ACTIVE' => 'Activo',
         ];
     }
