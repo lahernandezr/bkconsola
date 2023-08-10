@@ -7,9 +7,6 @@
 /* CAFE #502314 */
 /* NARANJA #fa0 */
 
-
-
-
 @font-face {
     font-family: 'FlameBold';
     src: url('../fonts/FlameBold.otf') format('opentype');
@@ -50,7 +47,7 @@ body {
 .btn-primary {
     background-color: #d62300 !important;
     border-color: #d62300 !important;
-    border-radius: 24px !important;
+    border-radius: 12px !important;
 }
 
 .btn-success {
@@ -65,9 +62,9 @@ body {
     background-color: white !important;
 }
 
+/* Menu lateral */
 aside {
-    background-color: #502314 !important;
-    
+    background-color: #502314 !important; 
 }
 
 a.nav-link {
@@ -76,15 +73,11 @@ a.nav-link {
 
 a.nav-link.active {
     background-color: #FF8732 !important;
+    color: #502314 !important;
+}
+
+.brand-text, a.d-block {
     color: #F5EBDC !important;
-}
-
-.brand-text, .d-block {
-    color: #F5EBDC;
-}
-
-a.d-block {
-    color: #fa0 !important;
 }
 
 .nav-header {

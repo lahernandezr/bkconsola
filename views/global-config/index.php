@@ -10,13 +10,13 @@ use app\models\GlobalConfig;
 /* @var $searchModel app\models\GlobalConfigSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Global Configs';
+$this->title = 'Configuración Global';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="global-config-index">
 
     <p>
-        <?= Html::a('Create Global Config', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Configuración Global', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
