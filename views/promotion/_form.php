@@ -41,12 +41,21 @@ if($this->context->action->id == 'update' )
                 <div class="col-md-4">
                     <?= $form->field($model, 'CODE')->textInput(['maxlength' => true, 'value' => $code, 'readonly' => true ]) ?>
                 </div>
-                <div class="col-md-8">
-                    <?= $form->field($model, 'NAME')->textInput(['maxlength' => true]) ?>
-                </div>
+                
             </div>
 
-            <?= $form->field($model, 'DESCRIPTION')->textInput(['maxlength' => true]) ?>
+            <div class="row">
+            <div class="col-md-12">
+                    <?= $form->field($model, 'NAME')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-12">
+                <?= $form->field($model, 'DESCRIPTION')->textInput(['maxlength' => true]) ?>
+                </div>
+            
+                
+            </div>
+
+            
 
             <div class="row">
                 <div class="col-md-4">
@@ -161,7 +170,7 @@ if($this->context->action->id == 'update' )
 
             <?= $form->field($model, 'LINK')->textInput(['maxlength' => false]) ?>
             <div class="row">
-                <div class="col-md-3">                    
+                <div class="col-md-6">                    
                     <?= $form->field($model, 'LIMIT_EXCHANGE')->widget(NumberControl::class, [
                                 'maskedInputOptions' => [
                                     'prefix' => '',
@@ -172,18 +181,7 @@ if($this->context->action->id == 'update' )
 
                             ]); ?>                    
                 </div>
-                <div class="col-md-3">
-                    <?= $form->field($model, 'LIMIT_PER_DAY')->widget(NumberControl::class, [
-                                'maskedInputOptions' => [
-                                    'prefix' => '',
-                                    'min' => 0,
-                                    'max' => 999999,
-                                    'allowMinus' => false
-                                ],
-
-                            ]); ?>                      
-                </div>
-                <div class="col-md-3">                    
+                <div class="col-md-6">                    
                     <?= $form->field($model, 'LIMIT_PER_CUSTOMER')->widget(NumberControl::class, [
                                 'maskedInputOptions' => [
                                     'prefix' => '',
@@ -194,7 +192,19 @@ if($this->context->action->id == 'update' )
 
                             ]); ?>                    
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'LIMIT_PER_DAY')->widget(NumberControl::class, [
+                                'maskedInputOptions' => [
+                                    'prefix' => '',
+                                    'min' => 0,
+                                    'max' => 999999,
+                                    'allowMinus' => false
+                                ],
+
+                            ]); ?>                      
+                </div>
+                
+                <div class="col-md-6">
                     
                     <?= $form->field($model, 'LIMIT_PER_DAY_CUSTOMER')->widget(NumberControl::class, [
                                 'maskedInputOptions' => [
@@ -220,7 +230,7 @@ if($this->context->action->id == 'update' )
 
 
             <div class="form-group">
-                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('CREAR', ['class' => 'btn btn-success']) ?>
             </div>
 
         </div>

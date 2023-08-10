@@ -27,7 +27,8 @@ $this->registerJsFile($publishedRes[1].'/control_sidebar.js', ['depends' => '\ha
     <?php $this->head() ?>
     <style>
         .bg-login {
-        background: url('<?= Yii::$app->getHomeUrl(); ?>/images/bg-login-sale.png') ;
+        /* background: url('<?= Yii::$app->getHomeUrl(); ?>/images/bg-login-sale.png') ; */
+        background-color: #F5EBDC;
         background-repeat: no-repeat;
         background-size: cover;
         

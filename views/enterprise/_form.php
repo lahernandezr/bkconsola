@@ -12,41 +12,47 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <?= $form->field($model, 'CODE')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <?= $form->field($model, 'NAME')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+    <div class="col-md-6">
+            <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-6">
             <?= $form->field($model, 'ADDRESS')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-md-4">
+        
+    </div>
+    <div class="row">
+        <div class="col-md-6">
             <?= $form->field($model, 'NIT')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <?= $form->field($model, 'RUT')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <?= $form->field($model, 'CONTACT')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <?= $form->field($model, 'PHONE')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'ACTIVE')->textInput() ?>
+    </div>
+    <div class="row">
+    <div class="col-md-4">
+            <?= $form->field($model, 'ACTIVE')->checkbox() ?>
         </div>
-    </div>
+        </div>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('CREAR', ['class' => 'btn btn-success']) ?>
     </div>
+    
 
     <?php ActiveForm::end(); ?>
 

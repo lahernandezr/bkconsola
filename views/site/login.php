@@ -16,21 +16,22 @@ $parname =  ($parname)? $parname->VALUE:"";
     
     <div class="mt-5 offset-lg-3 col-lg-6">            
         <div class="text-center pb-4">
-            <img src="<?= Yii::$app->getHomeUrl(); ?>/images/burger-king-256.png" alt="AdminLTE Logo" class="brand-image  " style="opacity: .8">
+            <img src="<?= Yii::$app->getHomeUrl(); ?>/images/burger-king-256.png" alt="AdminLTE Logo" class="brand-image  " style="opacity: 1">
         </div>
-        <div class="card">
+        <div class="card text-center">
             <div class="card-header  bg-orange">
-                <h3 class="card-title"><?= Html::encode($parname) ?></h3>
+                <!-- <h3 class="card-title"><?= Html::encode($parname) ?></h3> -->
+                <h3 class="card-title"><?= Html::encode("CONSOLA DE PROMOCIONES")?></h3>
             </div>
             <div class="card-body">
-                <p>Por favor ingresa los campos requeridos:</p>
+                <h4>Accede a tu cuenta</h4>
 
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
                     <?= $form->field($model, 'password')->passwordInput() ?>
                     <?= $form->field($model, 'rememberMe')->checkbox() ?>
                     <div class="form-group">
-                        <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton('ACCEDER', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
                     </div>
                 <?php ActiveForm::end(); ?>
             </div>
