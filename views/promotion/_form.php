@@ -145,7 +145,7 @@ if($this->context->action->id == 'update' )
                                 'pluginOptions' => [
                                     'autoclose' => true,                                    
                                     'todayHighlight' => true,
-                                    'format' => 'yyyy-MM-dd H:i:s'
+                                    'format' => 'yyyy-MM-dd'
                                 ]
                             ]
                         ) ?>                    
@@ -161,7 +161,7 @@ if($this->context->action->id == 'update' )
                                 'pluginOptions' => [
                                     'autoclose' => true,                                    
                                     'todayHighlight' => true,
-                                    'format' => 'yyyy-MM-dd H:i:s'
+                                    'format' => 'yyyy-MM-dd'
                                 ]
                             ]
                         ) ?>                     
@@ -230,40 +230,68 @@ if($this->context->action->id == 'update' )
 
 
             <div class="form-group">
-                <?= Html::submitButton('CREAR', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('GUARDAR', ['class' => 'btn btn-success']) ?>
             </div>
 
         </div>
 
-        <div class="row-md-4">
-            <?php if ($this->context->action->id == 'create') : ?>
-                <?= $form->field($model, 'file')->widget(FileInput::class, [
-                    'options' => [
-                        'accept' => 'image/*'
-                    ],
-                    'pluginOptions' => [
-                        'showUpload' => false
-                    ],
-                ]);
-                ?>
-            <?php endif; ?>
-            <?php if ($this->context->action->id == 'update') : ?>
-                <?= $form->field($model, 'file')->widget(FileInput::class, [
-                    'options' => [
-                        'accept' => 'image/*'
-                    ],
-                    'pluginOptions' => [
-                        'showUpload' => false,
-                        'initialPreview'=>[
-                            Yii::$app->getHomeUrl() . 'uploads/promos/' . $model->IMAGE
-                        ],
-                        'initialPreviewAsData'=>true,
-                    ],
-                ]);
-                ?>
-            <?php endif; ?>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">            
+                    <?php if ($this->context->action->id == 'create') : ?>
+                        <?= $form->field($model, 'file')->widget(FileInput::class, [
+                            'options' => [
+                                'accept' => 'image/*'
+                            ],
+                            'pluginOptions' => [
+                                'showUpload' => false
+                            ],
+                        ]);
+                        ?>
+                    <?php endif; ?>
+                    <?php if ($this->context->action->id == 'update') : ?>
+                        <?= $form->field($model, 'file')->widget(FileInput::class, [
+                            'options' => [
+                                'accept' => 'image/*'
+                            ],
+                            'pluginOptions' => [
+                                'showUpload' => false,
+                                'initialPreview'=>[
+                                    Yii::$app->getHomeUrl() . 'uploads/promos/' . $model->IMAGE
+                                ],
+                                'initialPreviewAsData'=>true,
+                            ],
+                        ]);
+                        ?>
+                    <?php endif; ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'SERIE')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-12">    
+                    <?= $form->field($model, 'S_INIT')->widget(NumberControl::class, [
+                                'maskedInputOptions' => [
+                                    'prefix' => '',
+                                    'min' => 0,
+                                    'max' => 999999,
+                                    'allowMinus' => false
+                                ],
+
+                            ]); ?>              
+                </div>
+                <div class="col-md-12">    
+                    <?= $form->field($model, 'S_END')->widget(NumberControl::class, [
+                                'maskedInputOptions' => [
+                                    'prefix' => '',
+                                    'min' => 0,
+                                    'max' => 999999,
+                                    'allowMinus' => false
+                                ],
+
+                            ]); ?>              
+                </div>                
+            </div>
         </div>
-    </div>
 
     <?php ActiveForm::end(); ?>
 

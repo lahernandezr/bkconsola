@@ -40,13 +40,13 @@ class Promotion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['CODE', 'NAME', 'DESCRIPTION', 'ID_TYPE_PROMOTION', 'VALUE',  'IMAGE', 'LINK'], 'required'],
-            [['VALUE'], 'number'],
+            [['CODE', 'NAME', 'DESCRIPTION', 'ID_TYPE_PROMOTION'], 'required'],
+            [['VALUE','S_INIT','S_END'], 'number'],
             [['TYPE_DISC', 'IMAGE', 'LINK'], 'string'],
             [['ID_ITEM', 'LIMIT_EXCHANGE', 'REDIMM','LIMIT_PER_DAY','LIMIT_PER_CUSTOMER','LIMIT_PER_DAY_CUSTOMER'], 'integer'],
             [['INIT', 'END'], 'safe'],
             [['ACTIVE'], 'boolean'],
-            [['CODE'], 'string', 'max' => 50],
+            [['CODE','SERIE'], 'string', 'max' => 50],
             [['NAME'], 'string', 'max' => 100],
             [['DESCRIPTION'], 'string', 'max' => 255],
             [['ID_TYPE_PROMOTION'], 'string', 'max' => 2],
@@ -68,7 +68,7 @@ class Promotion extends \yii\db\ActiveRecord
             'DESCRIPTION' => 'Descripción',
             'ID_TYPE_PROMOTION' => 'Tipo Promoción',
             'VALUE' => 'Valor',
-            'TYPE_DISC' => 'Tipo Desc',
+            'TYPE_DISC' => 'Tipo Descuento',
             'ID_ITEM' => 'Item',
             'INIT' => 'Inicio',
             'END' => 'Termino',
@@ -81,8 +81,8 @@ class Promotion extends \yii\db\ActiveRecord
             'REDIMM' => 'Redención',
             'ID_ENTERPRISE' => 'Empresa',
             'SERIE' => 'Serie',
-            'S_INIT' => 'Inicial',
-            'S_END' => 'Final',            
+            'S_INIT' => 'Valor Inicial',
+            'S_END' => 'Valor Final',            
             'ACTIVE' => 'Activo',
         ];
     }
