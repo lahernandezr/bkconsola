@@ -120,6 +120,26 @@ abstract class BaseDataset extends \yii\base\Component
     public $label = '';
 
     /**
+     * @var string|null
+     */
+    public $xAxisID = null;
+
+    /**
+     * @var string|null
+     */
+    public $yAxisID = null;
+
+    /**
+     * @var string|null
+     */
+    public $stack = null;
+
+    /**
+     * @var int
+     */
+    public $lineTension = 0;
+
+    /**
      * Populates `$this->data` manipulating a query row into the correct format
      * for the dataset format use are using
      *
@@ -191,6 +211,20 @@ abstract class BaseDataset extends \yii\base\Component
         if (strlen($this->label) > 0) {
             $dataset['label'] = $this->label;
         }
+
+        if ($this->xAxisID !== null) {
+            $dataset['xAxisID'] = $this->xAxisID;
+        }
+
+        if ($this->yAxisID !== null) {
+            $dataset['yAxisID'] = $this->yAxisID;
+        }
+
+        if ($this->stack !== null) {
+            $dataset['stack'] = $this->stack;
+        }
+
+        $dataset['lineTension'] = $this->lineTension;
 
         return $dataset;
     }

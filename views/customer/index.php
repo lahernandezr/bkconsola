@@ -64,10 +64,33 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= ExportMenu::widget([
         'dataProvider' => $dataProvider,
         'columns' => $gridColumns,
-        'dropdownOptions' => [
-            'label' => 'Export All',
+        'filename' => 'Clientes ' . date("d-M-Y H_i_s"),
+        'columnSelectorOptions'=>[
+            // 'label' => 'Columnas',
             'class' => 'btn btn-outline-secondary btn-default'
-        ]
+        ],
+        'exportConfig' => [
+            ExportMenu::FORMAT_HTML => false,
+            ExportMenu::FORMAT_TEXT => false,
+            ExportMenu::FORMAT_EXCEL => false,
+            ExportMenu::FORMAT_PDF => [
+                'pdfConfig' => [
+                    'methods' => [
+                        'SetTitle' => 'Lista de Clientes',
+                        'SetSubject' => 'PDF Burger King Colombia',
+                        'SetHeader' => ['Lista de Clientes ||Generado en: ' . date("r")],
+                        'SetFooter' => ['|Pagina {PAGENO}|'],
+                        'SetAuthor' => 'Burger King Colombia',
+                        'SetCreator' => 'Burger King Colombia',
+                        'SetKeywords' => 'Burger, King, Colombia, PDF',
+                    ],
+                ],   
+            ],
+        ],
+        'dropdownOptions' => [
+            'label' => 'Exportar',
+            'class' => 'btn btn-outline-secondary btn-default'
+        ],
     ]) . "<hr>\n"; ?>
 
     <?= GridView::widget([
