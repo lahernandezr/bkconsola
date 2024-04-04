@@ -48,34 +48,32 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'attribute' => 'CREATED_AT',
             'format' => ['datetime', 'php:d-M-Y']
-            ],
+        ],
         //'IS_OTP:boolean',
         'ACTIVE:boolean',
         [
             'class' => ActionColumn::class,
             'urlCreator' => function ($action, Customer $model, $key, $index, $column) {
                 return Url::toRoute([$action, 'ID' => $model->ID]);
-             }
+            }
         ],
     ];
-    
+
     ?>
 
-
-    <?php echo ExportMenu::widget([
-    'dataProvider' => $dataProvider,
-    'columns' => $gridColumns,
-    'dropdownOptions' => [
-        'label' => 'Export All',
-        'class' => 'btn btn-outline-secondary btn-default'
-    ]
-]) . "<hr>\n"; ?>
+    <?= ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'dropdownOptions' => [
+            'label' => 'Export All',
+            'class' => 'btn btn-outline-secondary btn-default'
+        ]
+    ]) . "<hr>\n"; ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $gridColumns,
-    ]); ?>
-
-
+    ]);
+    ?>
 </div>
