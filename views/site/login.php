@@ -14,7 +14,7 @@ $parname =  ($parname)? $parname->VALUE:"";
 ?>
 <div class="site-login">
     
-    <div class="mt-5 offset-lg-3 col-lg-6">            
+    <div class="mt-5 offset-lg-5 col-lg-4">            
         <div class="text-center pb-4">
             <img src="<?= Yii::$app->getHomeUrl(); ?>/images/burger-king-256.png" alt="AdminLTE Logo" class="brand-image  " style="opacity: 1">
         </div>
