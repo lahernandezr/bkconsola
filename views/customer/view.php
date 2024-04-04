@@ -47,7 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'ID_REGISTRATION',
             'CREATED_AT',
             //'IS_OTP:boolean',
-            'ACTIVE:boolean',
+            // 'ACTIVE:boolean',
+            [
+                'attribute' => 'ACTIVE',
+                'value' => $model->ACTIVE ? 'Si' : 'No',
+            ],
         ],
     ]) ?>
 

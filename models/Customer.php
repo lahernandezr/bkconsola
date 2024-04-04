@@ -25,6 +25,7 @@ use Yii;
  */
 class Customer extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -39,7 +40,7 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['USERNAME', 'PASSWORD', 'EMAIL', 'FULLNAME', 'PHONE', 'WHATSAPP', 'ID_COUNTRY', 'BIRTHDATE', 'ID_GENDER', 'TYPE_REGISTRATION', 'ID_REGISTRATION'], 'required'],
+            [['USERNAME', 'EMAIL', 'FULLNAME', 'PHONE', 'ID_COUNTRY', 'BIRTHDATE', 'ID_GENDER', 'TYPE_REGISTRATION'], 'required'],
             [['CREATED_AT'], 'safe'],
             [['IS_OTP', 'ACTIVE'], 'boolean'],
             [['USERNAME', 'EMAIL', 'FULLNAME', 'ID_REGISTRATION'], 'string', 'max' => 255],
@@ -50,6 +51,7 @@ class Customer extends \yii\db\ActiveRecord
             [['ID_COUNTRY'], 'string', 'max' => 3],
             [['USERNAME'], 'unique'],
             [['EMAIL'], 'unique'],
+            [['USERNAME'], 'match', 'pattern' => '/^[\*a-zA-Z0-9]{6,14}$/', 'message' => 'Minimo 6, maximo 14 caracteres letras y/o numeros.'],
         ];
     }
 
@@ -69,9 +71,9 @@ class Customer extends \yii\db\ActiveRecord
             'ID_COUNTRY' => 'Pais',
             'BIRTHDATE' => 'Cumpleaños',
             'ID_GENDER' => 'Genero',
-            'TYPE_REGISTRATION' => 'Tipo Registro',
+            'TYPE_REGISTRATION' => 'Canal de Registro',
             'ID_REGISTRATION' => 'Identificador Registro',
-            'CREATED_AT' => 'Fecha Registro',
+            'CREATED_AT' => 'Fecha de Registro',
             'IS_OTP' => 'Otp',
             'ACTIVE' => 'Activo',
         ];

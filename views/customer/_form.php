@@ -58,7 +58,7 @@ use kartik\daterange\DateRangePicker;
         <div class="col-lg-6">
             <?= $form->field($model, 'BIRTHDATE')->widget(
                 DateRangePicker::classname(), [
-                    'options' => ['placeholder' => 'Select birthday'],
+                    'options' => ['placeholder' => 'Fecha de Nacimiento'],
                     'convertFormat' => true,    
                     // 'disabled' => ($this->context->action->id == 'create') ? true : !$model->ONSALE,                
                     'pluginOptions' => [
@@ -75,10 +75,13 @@ use kartik\daterange\DateRangePicker;
 
     <div class="row">
         <div class="col-lg-6">
-            <?= $form->field($model, 'TYPE_REGISTRATION')->dropDownList([ 'EMAIL' => 'EMAIL', 'FACEBOOK' => 'FACEBOOK', 'INSTAGRAM' => 'INSTAGRAM', 'GOOGLE' => 'GOOGLE' ], ['prompt' => 'Select an option', 'disabled' => true]) ?>
+            <?= $form->field($model, 'TYPE_REGISTRATION')->dropDownList(
+                ($this->context->action->id == 'create') ? ['EMAIL' => 'EMAIL'] :
+                [ 'EMAIL' => 'EMAIL', 'FACEBOOK' => 'FACEBOOK', 'INSTAGRAM' => 'INSTAGRAM', 'GOOGLE' => 'GOOGLE' ],
+                 ['prompt' => 'Selecciona un canal', 'disabled' => ($this->context->action->id == 'create') ? false : true]) ?>
         </div>
         <div class="col-lg-6">
-            <?= $form->field($model, 'ID_REGISTRATION')->textInput(['maxlength' => true,'disabled' => true]) ?>
+            <?= $form->field($model, 'ID_REGISTRATION')->textInput(['maxlength' => true, 'disabled' => true]) ?>
         </div>
     </div>
 
