@@ -59,7 +59,7 @@ class Enterprise extends \yii\db\ActiveRecord
             'NIT' => 'NIT',
             'RUT' => 'RUT',
             'EMAIL' => 'Email',
-            'CONTACT' => 'Contacto',
+            'CONTACT' => 'Nombre de Contacto',
             'PHONE' => 'Telefono',
             'CREATED_AT' => 'Creado',
             'ACTIVE' => 'Activo',

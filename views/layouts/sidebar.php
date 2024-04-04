@@ -43,7 +43,7 @@ use yii\bootstrap4\Html;
             <?= \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     [
-                        'label' => 'Dashboard',
+                        'label' => 'Panel de Control',
                         'icon' => 'th',
                         'badge' => '<span class="right badge badge-danger">New</span>',
                         'url' => ['site/index'],
@@ -53,43 +53,37 @@ use yii\bootstrap4\Html;
                     // ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
 
                     ['label' => 'MENU', 'header' => true],
-                    ['label' => 'Clientes', 'icon' => 'fa-regular fa-users', 'url' => ['customer/index']],
+                    ['label' => 'Clientes', 'icon' => 'fa-regular fa-user', 'url' => ['customer/index']],
                     ['label' => 'Empresas', 'icon' => 'fa-solid fa-building', 'url' => ['enterprise/index']],                        
                    // ['label' => 'Category', 'icon' => 'fas fa-plus', 'url' => ['category/index']],
                    // ['label' => 'Item', 'icon' => 'fas fa-plus', 'url' => ['item/index']],
                     ['label' => 'Promociones', 'icon' => 'fa-solid fa-tags', 'url' => ['promotion/index']],
                    // ['label' => 'Sale', 'icon' => 'fas fa-plus', 'url' => ['sale/index']],
                 
-                    [
-                        'label' => 'Reportes',
-                        'icon' => 'fas fa-copy',
-                        'items' => [
-                            //['label' => 'Products Sale', 'icon' => 'file-alt', 'url' => ['#']],
-                            //['label' => 'Sale', 'icon' => 'file-alt', 'url' => ['#']],
-                            ['label' => 'Promotions', 'icon' => 'file-alt', 'url' => ['#']]
+                   [
+                    'label' => 'Informes',
+                    'icon' => 'chart-line',
+                    'items' => [
+                        //['label' => 'Products Sale', 'icon' => 'file-alt', 'url' => ['#']],
+                        //['label' => 'Sale', 'icon' => 'file-alt', 'url' => ['#']],
+                        ['label' => 'Canjes por Cliente', 'icon' => 'file-alt', 'url' => ['#']],
+                        ['label' => 'Canjes por Empresa', 'icon' => 'file-alt', 'url' => ['#']],
+                        ['label' => 'Canjes por Promocion', 'icon' => 'file-alt', 'url' => ['#']],
                         ]
                     ],
                     [
-                        'label' => 'Admin',
-                        'icon' => 'fas fa-lock',
-                        'items' => [
-                            // ['label' => 'Add User', 'icon' => 'fas fa-user-plus', 'url' => ['site/signup']],
-                             ['label' => 'Usuarios', 'icon' => 'fas fa-users', 'url' => ['user/index']],  
-                            // ['label' => 'Add Customer', 'icon' => 'fas fa-user-plus', 'url' => ['site/register']],      
-                            //  ['label' => 'Customers', 'icon' => 'fas fa-users', 'url' => ['customer/index']],                           
-                        ]
-                    ],
-                    [
-                        'label' => 'Settings',
-                        'icon' => 'fas fa-sliders-h',
+                        'label' => 'Configuracion',
+                        'icon' => 'fas fa-cog',
                         'items' => [
                             //['label' => 'Type Payment', 'icon' => 'fas fa-cog', 'url' => ['type-payment/index']],
                             //['label' => 'Fiscal', 'icon' => 'fas fa-cog', 'url' => ['fiscal/index']],
-                            ['label' => 'Sucursales', 'icon' => 'fas fa-cog', 'url' => ['store/index']],                            
-                            ['label' => 'Global', 'icon' => 'fas fa-cog', 'url' => ['global-config/index']],
+                            ['label' => 'Usuarios', 'icon' => 'fas fa-users', 'url' => ['user/index']],
+                            ['label' => 'Sucursales', 'icon' => 'fa-solid fa-store', 'url' => ['store/index']],                            
+                            ['label' => 'Global', 'icon' => 'fas fa-sliders-h', 'url' => ['global-config/index']],
                             
                         ]
                     ],
+                    
                     // ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
                     // ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
                     // ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],

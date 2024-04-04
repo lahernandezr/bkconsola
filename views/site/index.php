@@ -7,10 +7,10 @@ use app\models\Sale;
 use practically\chartjs\Chart;
 use app\models\Item;
 
-
+Yii::$app->language='es';
 ChartJSAsset::register($this);
 
-$this->title = 'Dashboard';
+$this->title = 'Panel de Control';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 
 $formatter = \Yii::$app->formatter;
@@ -24,41 +24,46 @@ $user = Customer::find()->where(['=', 'ACTIVE', true])->count();
     <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => ($sales == null) ? $formatter->asCurrency("0.0") : $formatter->asCurrency($sales),
-                'text' => 'Sales Today',
-                'icon' => 'fas fa-money-bill-alt',
+                // 'title' => ($sales == null) ? $formatter->asCurrency("0.0") : $formatter->asCurrency($sales),
+                'title' => $promos,
+                'text' => 'Redención de cupones',
+                'icon' => 'fas fa-ticket-alt',
                 'theme' => 'gradient-success',
                 'loadingStyle' => false,
+                'linkText' => 'Detalles',
                 'linkUrl' => '../sale/index',
             ]) ?>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
                 'title' => $promos,
-                'text' => 'Promotions Actives',
-                'icon' => 'fas fa-percentage',
-                'theme' => 'gradient-info',
+                'text' => 'Promos Activas',
+                'icon' => 'fas fa-tag',
+                'theme' => 'gradient-success',
                 'loadingStyle' => false,
+                'linkText' => 'Detalles',
                 'linkUrl' => '../promotion/index',
             ]) ?>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => $salesCount,
-                'text' => 'Sales Count Today',
-                'icon' => 'fas fa-calculator',
-                'theme' => 'gradient-success',
+                'title' => $user,
+                'text' => 'Total Clientes',
+                'icon' => 'fas fa-users',
+                'theme' => 'gradient-info',
                 'loadingStyle' => false,
+                'linkText' => 'Detalles',
                 'linkUrl' => '../item/index',
             ]) ?>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
                 'title' => $user,
-                'text' => 'User Registrations',
-                'icon' => 'fas fa-user-plus',
+                'text' => 'Total Empresas',
+                'icon' => 'fas fa-building',
                 'theme' => 'gradient-info',
                 'loadingStyle' => false,
+                'linkText' => 'Detalles',
                 'linkUrl' => '../user/index',
             ]) ?>
         </div>        
@@ -69,8 +74,8 @@ $user = Customer::find()->where(['=', 'ACTIVE', true])->count();
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Online Store Visitors</h3>
-                        <a href="javascript:void(0);">View Report</a>
+                        <h3 class="card-title">Canje de Cupones</h3>
+                        <a href="javascript:void(0);">Ver Reporte</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -132,7 +137,7 @@ $user = Customer::find()->where(['=', 'ACTIVE', true])->count();
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Online Store Visitors</h3>
-                        <a href="javascript:void(0);">View Report</a>
+                        <a href="javascript:void(0);">Ver Reporte</a>
                     </div>
                 </div>
                 <div class="card-body">

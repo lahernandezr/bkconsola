@@ -6,8 +6,9 @@ use yii\helpers\Html;
 /* @var $model app\models\Customer */
 
 $this->title = 'Crear Cliente';
-$this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="customer-create">
 

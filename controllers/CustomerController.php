@@ -111,7 +111,18 @@ class CustomerController extends Controller
      */
     public function actionDelete($ID)
     {
-        $this->findModel($ID)->delete();
+        // $this->findModel($ID)->delete();
+        $model = $this->findModel($ID);
+        // var_dump($model);
+        $model->ACTIVE = false;
+        // var_dump($model);
+        $model->save();
+        // $model->ACTIVE = false;
+        // var_dump($model->getErrors());
+
+        // if($model->save()){
+        //     return $this->redirect(['index']);
+        // } 
 
         return $this->redirect(['index']);
     }

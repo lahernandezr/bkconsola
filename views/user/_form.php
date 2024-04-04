@@ -72,7 +72,7 @@ use app\models\Rol;
                 </div>
             </div>
 
-            <?= $form->field($model, 'IS_OTP')->checkbox() ?>
+            <?php // echo $form->field($model, 'IS_OTP')->checkbox() ?>
 
             <?= $form->field($model, 'ACTIVE')->checkbox() ?>
 
