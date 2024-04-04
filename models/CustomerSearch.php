@@ -5,12 +5,29 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Customer;
+use kartik\daterange\DateRangeBehavior;
 
 /**
  * CustomerSearch represents the model behind the search form of `app\models\Customer`.
  */
 class CustomerSearch extends Customer
 {
+    public $created_at_range;
+    public $createTimeStart;
+    public $createTimeEnd;
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => DateRangeBehavior::className(), 
+                'attribute' => 'created_at_range',
+                'dateStartAttribute' => 'createTimeStart',
+                'dateEndAttribute' => 'createTimeEnd',
+            ]
+        ];
+     }
+
     /**
      * {@inheritdoc}
      */
@@ -20,6 +37,8 @@ class CustomerSearch extends Customer
             [['ID', 'ID_COUNTRY'], 'integer'],
             [['USERNAME', 'PASSWORD', 'EMAIL', 'FULLNAME', 'PHONE', 'WHATSAPP', 'BIRTHDATE', 'ID_GENDER', 'TYPE_REGISTRATION', 'ID_REGISTRATION', 'CREATED_AT'], 'safe'],
             [['IS_OTP', 'ACTIVE'], 'boolean'],
+            // [['created_at_range'], 'match', 'pattern' => '/^.+\s\-\s.+$/'],
+            [['created_at_range'], 'safe'],
         ];
     }
 
@@ -41,13 +60,15 @@ class CustomerSearch extends Customer
      */
     public function search($params)
     {
+        
+
         $query = Customer::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-        ]);
+        ]); 
 
         $this->load($params);
 
@@ -57,11 +78,30 @@ class CustomerSearch extends Customer
             return $dataProvider;
         }
 
+        //Convierte la cadena en un arreglo con las dos fechas
+        if(!empty($this->created_at_range)) {
+            $fechas = explode(' - ', $this->created_at_range); 
+            if( (bool)strtotime($fechas[0]) && (bool)strtotime($fechas[1]) ){
+                $this->createTimeStart = $fechas[0];
+                $this->createTimeEnd = $fechas[1];
+            }
+        }
+        
+
+         // Agregar condicion de rango de fechas 
+        $query->andFilterWhere(['>=', 'CREATED_AT', $this->createTimeStart])
+        ->andFilterWhere(['<', 'CREATED_AT', $this->createTimeEnd]); 
+
+        // if(!empty($this->created_at_range) && strpos($this->created_at_range, '-') !== false) {
+		// 	list($start_date, $end_date) = explode(' - ', $this->created_at_range);
+		// 	$query->andFilterWhere(['between', 'CREATED_AT', strtotime($start_date), strtotime($end_date)]);
+		// }		
+
         // grid filtering conditions
         $query->andFilterWhere([
             'ID' => $this->ID,
             'ID_COUNTRY' => $this->ID_COUNTRY,
-            'CREATED_AT' => $this->CREATED_AT,
+            // 'CREATED_AT' => $this->CREATED_AT,
             'IS_OTP' => $this->IS_OTP,
             'ACTIVE' => $this->ACTIVE,
         ]);

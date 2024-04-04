@@ -7,6 +7,7 @@ use yii\grid\ActionColumn;
 // use yii\grid\GridView;
 use kartik\export\ExportMenu;
 use kartik\grid\GridView;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CustomerSearch */
@@ -45,10 +46,39 @@ $this->params['breadcrumbs'][] = $this->title;
         'TYPE_REGISTRATION',
         //'ID_REGISTRATION',
         // 'CREATED_AT',
+        // [
+        //     'attribute' => 'CREATED_AT',
+        //     'format' => ['datetime', 'php:d-M-Y']
+        // ],
         [
-            'attribute' => 'CREATED_AT',
-            'format' => ['datetime', 'php:d-M-Y']
-        ],
+                // 'label' => 'Fecha Inicial',
+                'attribute' => 'CREATED_AT',
+                'value' => function ($model) {
+                    if (extension_loaded('intl')) {
+                        return Yii::t('app', date('d-M-Y'), [$model->CREATED_AT]);
+                    } else {
+                        return date('d-M-Y', $model->CREATED_AT);
+                    }
+                    // return date('Y-m-d h:i:s', $model->CREATED_AT);
+                },
+                'filter' =>
+                DateRangePicker::widget([
+                    'model' => $searchModel,
+                    // 'name' => 'createTimeRange',
+                    'attribute' => 'created_at_range',
+                    'convertFormat' => true,
+                    //'startAttribute'=> date('Y-m-d h:i:s'),
+                    //'endAttribute'=>date('Y-m-d h:i:s'),
+                    'presetDropdown' => true,
+                    'pluginOptions' => [
+                        'timePicker' => true,
+                        'timePickerIncrement' => 1,
+                        'locale' => [
+                            'format' => 'Y-m-d'
+                        ]
+                    ]
+                ])
+            ],
         //'IS_OTP:boolean',
         'ACTIVE:boolean',
         [
