@@ -111,9 +111,11 @@ class EnterpriseController extends Controller
      */
     public function actionDelete($ID)
     {
-        $this->findModel($ID)->delete();
-
-        return $this->redirect(['index']);
+            $model = $this->findModel($ID);
+            $model->ACTIVE = false;
+            $model->save();
+            // var_dump($model->getErrors());
+            return $this->redirect(['index']);
     }
 
     /**

@@ -14,9 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="customer-view">
 
     <p>
-        <?= Html::a('Actualizar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Actualizar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Dar de Baja', ['delete', 'ID' => $model->ID], [
-            'class' => 'btn btn-danger',
+            'class' => 'btn btn-primary',
             'data' => [
                 'confirm' => '¿Estas seguro de dar de baja el registro?',
                 'method' => 'post',
@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->ACTIVE ? 'Si' : 'No',
             ],
         ],
+        'template' => "<tr><th style='width: 30%;'>{label}</th><td>{value}</td></tr>"
     ]) ?>
 
 </div>

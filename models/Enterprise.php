@@ -35,14 +35,15 @@ class Enterprise extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['CODE', 'NAME', 'ADDRESS', 'NIT', 'RUT', 'EMAIL', 'CONTACT', 'PHONE', 'ACTIVE'], 'required'],
+            [['CODE', 'NAME', 'ADDRESS', 'NIT', 'RUT', 'EMAIL', 'CONTACT', 'PHONE'], 'required'],
             [['CREATED_AT'], 'safe'],
-            [['ACTIVE'], 'integer'],
+            [['ACTIVE'], 'boolean'],
             [['CODE'], 'string', 'max' => 10],
             [['NAME', 'EMAIL', 'CONTACT'], 'string', 'max' => 100],
             [['ADDRESS'], 'string', 'max' => 255],
             [['NIT', 'RUT', 'PHONE'], 'string', 'max' => 30],
             [['CODE'], 'unique'],
+            [['CODE'], 'match', 'pattern' => '/^[\*a-zA-Z0-9]{6,10}$/', 'message' => 'Minimo 6, maximo 10 caracteres letras y/o numeros.'],
         ];
     }
 

@@ -7,18 +7,18 @@ use yii\widgets\DetailView;
 /** @var app\models\Enterprise $model */
 
 $this->title = $model->NAME;
-$this->params['breadcrumbs'][] = ['label' => 'Enterprises', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Empresas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="enterprise-view">
 
     <p>
-        <?= Html::a('Update', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'ID' => $model->ID], [
-            'class' => 'btn btn-danger',
+    <?= Html::a('Actualizar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Dar de Baja', ['delete', 'ID' => $model->ID], [
+            'class' => 'btn btn-primary',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '¿Estas seguro de dar de baja el registro?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -37,8 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'CONTACT',
             'PHONE',
             'CREATED_AT',
-            'ACTIVE',
+            // 'ACTIVE',
+            [
+                'attribute' => 'ACTIVE',
+                'value' => $model->ACTIVE ? 'Si' : 'No',
+            ],
         ],
+        'template' => "<tr><th style='width: 30%;'>{label}</th><td>{value}</td></tr>"
     ]) ?>
 
 </div>

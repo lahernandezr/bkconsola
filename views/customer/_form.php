@@ -91,7 +91,7 @@ use kartik\daterange\DateRangePicker;
 
 
     <div class="form-group">
-        <?= Html::submitButton('CREAR', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(($this->context->action->id == 'create') ? 'CREAR' : 'GUARDAR', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
