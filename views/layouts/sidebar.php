@@ -57,7 +57,7 @@ use yii\bootstrap4\Html;
                     ['label' => 'Empresas', 'icon' => 'fa-solid fa-building', 'url' => ['enterprise/index']],                        
                    // ['label' => 'Category', 'icon' => 'fas fa-plus', 'url' => ['category/index']],
                    // ['label' => 'Item', 'icon' => 'fas fa-plus', 'url' => ['item/index']],
-                    ['label' => 'Promociones', 'icon' => 'fa-solid fa-tags', 'url' => ['promotion/index']],
+                    ['label' => 'Cupones', 'icon' => 'fas fa-ticket-alt', 'url' => ['promotion/index']],
                    // ['label' => 'Sale', 'icon' => 'fas fa-plus', 'url' => ['sale/index']],
                 
                    [

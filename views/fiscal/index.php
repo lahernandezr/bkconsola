@@ -1,9 +1,10 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use app\models\Fiscal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\FiscalSearch */

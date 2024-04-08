@@ -1,12 +1,12 @@
 <?php
 
-use app\models\Enterprise;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 // use yii\grid\GridView;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
+use app\models\Enterprise;
 
 /** @var yii\web\View $this */
 /** @var app\models\EnterpriseSearch $searchModel */

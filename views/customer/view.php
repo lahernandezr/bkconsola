@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Customer */
+/** @var yii\web\View $this */
+/** @var app\models\Customer $model*/
 
 $this->title = $model->USERNAME;
 $this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];

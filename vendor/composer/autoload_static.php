@@ -158,6 +158,7 @@ class ComposerStaticInitfc1932ff4c819275e330abedbf24a289
             'kartik\\dialog\\' => 14,
             'kartik\\datetime\\' => 16,
             'kartik\\daterange\\' => 17,
+            'kartik\\date\\' => 12,
             'kartik\\color\\' => 13,
             'kartik\\bs4dropdown\\' => 19,
             'kartik\\base\\' => 12,
@@ -354,6 +355,10 @@ class ComposerStaticInitfc1932ff4c819275e330abedbf24a289
         'kartik\\daterange\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-date-range/src',
+        ),
+        'kartik\\date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datepicker/src',
         ),
         'kartik\\color\\' => 
         array (

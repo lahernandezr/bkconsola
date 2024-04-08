@@ -1,22 +1,23 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use app\models\Promotion;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PromotionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Promociones';
+$this->title = 'Cupones';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="promotion-index">
 
     <p>
-        <?= Html::a('Crear Promoción', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Cupón', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -44,10 +45,29 @@ $this->params['breadcrumbs'][] = $this->title;
             //'TYPE_DISC',
             //'ID_ITEM',
             //'INIT',
-            'END',
+            // 'END:datetime',
+            [
+                'attribute' => 'END',
+                'value' => 'END',
+                'format' => ['datetime', 'php:d-M-Y'],
+                'filter' =>
+                DateRangePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at_range',
+                    'convertFormat' => true,
+                    'presetDropdown' => true,
+                    'pluginOptions' => [
+                        'timePicker' => false,
+                        'locale' => [
+                            'format' => 'Y-m-d'
+                        ],
+                        'opens'=>'left'
+                    ]
+                ])
+            ],
             //'IMAGE:ntext',
             //'LINK:ntext',
-            'LIMIT_EXCHANGE',
+            'LIMIT_EXCHANGE:decimal',
             'REDIMM',
             //'ACTIVE:boolean',
             [

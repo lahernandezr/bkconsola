@@ -1,12 +1,12 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Promotion */
+/** @var yii\web\View $this */
+/** @var app\models\Promotion $model */
 
-$this->title = 'Crear Promoción';
-$this->params['breadcrumbs'][] = ['label' => 'Promociones', 'url' => ['index']];
+$this->title = 'Crear Cupón';
+$this->params['breadcrumbs'][] = ['label' => 'Cupónes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="promotion-create">

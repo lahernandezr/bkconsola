@@ -1,14 +1,14 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Promotion */
 
-$this->title = 'Actualizar Promocion: ' . $model->CODE;
-$this->params['breadcrumbs'][] = ['label' => 'Promociones', 'url' => ['index']];
+$this->title = 'Actualizar Cupón: ' . $model->CODE;
+$this->params['breadcrumbs'][] = ['label' => 'Cupones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->NAME, 'url' => ['view', 'ID' => $model->ID]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualización';
 ?>
 <div class="promotion-update">
 

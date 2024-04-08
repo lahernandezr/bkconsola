@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 ?>
 <div class="card">
     <div class="card-body login-card-body">

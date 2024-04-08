@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 07, 2024 at 10:46 PM
--- Server version: 5.7.36
--- PHP Version: 8.1.0
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 08, 2024 at 12:26 PM
+-- Server version: 8.2.0
+-- PHP Version: 8.1.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,13 +27,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `app_ads`
 --
 
-CREATE TABLE `app_ads` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_ads`;
+CREATE TABLE IF NOT EXISTS `app_ads` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `NAME` varchar(255) NOT NULL,
   `TYPE` enum('VIDEO','IMAGE','LINK') NOT NULL,
   `LINK` text NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -41,20 +43,23 @@ CREATE TABLE `app_ads` (
 -- Table structure for table `app_category`
 --
 
-CREATE TABLE `app_category` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_category`;
+CREATE TABLE IF NOT EXISTS `app_category` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `NAME` varchar(255) NOT NULL,
-  `ID_TAX` int(11) NOT NULL,
+  `ID_TAX` int NOT NULL,
   `BACKGROUND` varchar(20) DEFAULT NULL,
   `FORECOLOR` varchar(20) DEFAULT NULL,
   `IMAGE` text,
-  `ORDER` int(11) DEFAULT NULL,
+  `ORDER` int DEFAULT NULL,
   `ONSALE` bit(1) NOT NULL,
   `INIT` datetime DEFAULT NULL,
   `END` datetime DEFAULT NULL,
   `IS_SHOW` bit(1) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ID_TAX` (`ID_TAX`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_category`
@@ -70,12 +75,14 @@ INSERT INTO `app_category` (`ID`, `NAME`, `ID_TAX`, `BACKGROUND`, `FORECOLOR`, `
 -- Table structure for table `app_country`
 --
 
-CREATE TABLE `app_country` (
+DROP TABLE IF EXISTS `app_country`;
+CREATE TABLE IF NOT EXISTS `app_country` (
   `ID` varchar(3) NOT NULL,
   `NAME` varchar(30) NOT NULL,
   `ISO3` varchar(3) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `app_country`
@@ -90,8 +97,9 @@ INSERT INTO `app_country` (`ID`, `NAME`, `ISO3`, `ACTIVE`) VALUES
 -- Table structure for table `app_customer`
 --
 
-CREATE TABLE `app_customer` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_customer`;
+CREATE TABLE IF NOT EXISTS `app_customer` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `USERNAME` varchar(255) NOT NULL,
   `PASSWORD` varchar(500) DEFAULT NULL,
   `EMAIL` varchar(255) NOT NULL,
@@ -105,8 +113,10 @@ CREATE TABLE `app_customer` (
   `ID_REGISTRATION` varchar(255) DEFAULT NULL,
   `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `IS_OTP` bit(1) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `USERNAME` (`USERNAME`,`EMAIL`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_customer`
@@ -123,14 +133,17 @@ INSERT INTO `app_customer` (`ID`, `USERNAME`, `PASSWORD`, `EMAIL`, `FULLNAME`, `
 -- Table structure for table `app_customer_address`
 --
 
-CREATE TABLE `app_customer_address` (
-  `ID` int(11) NOT NULL,
-  `ID_USER` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_customer_address`;
+CREATE TABLE IF NOT EXISTS `app_customer_address` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_USER` int NOT NULL,
   `NAME` varchar(50) NOT NULL,
   `ADDRESS1` varchar(150) NOT NULL,
   `ADDRESS2` varchar(150) NOT NULL,
-  `PHONE` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `PHONE` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ID_USER` (`ID_USER`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -138,8 +151,9 @@ CREATE TABLE `app_customer_address` (
 -- Table structure for table `app_enterprise`
 --
 
-CREATE TABLE `app_enterprise` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_enterprise`;
+CREATE TABLE IF NOT EXISTS `app_enterprise` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `CODE` varchar(10) NOT NULL,
   `NAME` varchar(100) NOT NULL,
   `ADDRESS` varchar(255) NOT NULL,
@@ -149,8 +163,10 @@ CREATE TABLE `app_enterprise` (
   `CONTACT` varchar(100) NOT NULL,
   `PHONE` varchar(30) NOT NULL,
   `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `CODE` (`CODE`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `app_enterprise`
@@ -166,18 +182,20 @@ INSERT INTO `app_enterprise` (`ID`, `CODE`, `NAME`, `ADDRESS`, `NIT`, `RUT`, `EM
 -- Table structure for table `app_fiscal`
 --
 
-CREATE TABLE `app_fiscal` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_fiscal`;
+CREATE TABLE IF NOT EXISTS `app_fiscal` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `TYPE` enum('TICKET','CREDITO FISCAL','FACTURA','') NOT NULL,
   `AUTH_RESOLUTION` varchar(50) NOT NULL,
   `AUTH_DATE` varchar(20) NOT NULL,
   `SERIE` varchar(50) NOT NULL,
-  `INIT` int(11) NOT NULL,
-  `END` int(11) NOT NULL,
-  `CURRENT` int(11) NOT NULL,
+  `INIT` int NOT NULL,
+  `END` int NOT NULL,
+  `CURRENT` int NOT NULL,
   `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -185,10 +203,12 @@ CREATE TABLE `app_fiscal` (
 -- Table structure for table `app_gender`
 --
 
-CREATE TABLE `app_gender` (
-  `ID` int(11) NOT NULL,
-  `NAME` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+DROP TABLE IF EXISTS `app_gender`;
+CREATE TABLE IF NOT EXISTS `app_gender` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(10) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_gender`
@@ -204,11 +224,13 @@ INSERT INTO `app_gender` (`ID`, `NAME`) VALUES
 -- Table structure for table `app_global_config`
 --
 
-CREATE TABLE `app_global_config` (
+DROP TABLE IF EXISTS `app_global_config`;
+CREATE TABLE IF NOT EXISTS `app_global_config` (
   `ID` varchar(20) NOT NULL,
   `VALUE` varchar(255) NOT NULL,
-  `DESCRIPTION` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `app_global_config`
@@ -230,16 +252,17 @@ INSERT INTO `app_global_config` (`ID`, `VALUE`, `DESCRIPTION`) VALUES
 -- Table structure for table `app_item`
 --
 
-CREATE TABLE `app_item` (
-  `ID` int(11) NOT NULL,
-  `ID_PARENT` int(11) DEFAULT NULL,
+DROP TABLE IF EXISTS `app_item`;
+CREATE TABLE IF NOT EXISTS `app_item` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_PARENT` int DEFAULT NULL,
   `BARCODE` varchar(255) NOT NULL,
   `NAME` varchar(255) NOT NULL,
   `ID_TYPE_ITEM` varchar(1) NOT NULL,
-  `ID_CATEGORY` int(11) NOT NULL,
+  `ID_CATEGORY` int NOT NULL,
   `PRICE_COST` decimal(10,4) NOT NULL,
   `PRICE_SELL` decimal(10,4) NOT NULL,
-  `ID_TAX` int(11) NOT NULL,
+  `ID_TAX` int NOT NULL,
   `MARGIN` decimal(10,4) NOT NULL,
   `PRICE_TAX` decimal(10,4) NOT NULL,
   `IMAGE` text,
@@ -250,29 +273,34 @@ CREATE TABLE `app_item` (
   `EXTRAS` text,
   `IS_SHOW` bit(1) NOT NULL,
   `IS_PARENT` bit(1) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `BARCODE` (`BARCODE`),
+  KEY `ID_CATEGORY` (`ID_CATEGORY`),
+  KEY `ID_TAX` (`ID_TAX`),
+  KEY `ID_PARENT` (`ID_PARENT`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_item`
 --
 
 INSERT INTO `app_item` (`ID`, `ID_PARENT`, `BARCODE`, `NAME`, `ID_TYPE_ITEM`, `ID_CATEGORY`, `PRICE_COST`, `PRICE_SELL`, `ID_TAX`, `MARGIN`, `PRICE_TAX`, `IMAGE`, `ON_SALE`, `INIT`, `END`, `DESCRIPCION`, `EXTRAS`, `IS_SHOW`, `IS_PARENT`, `ACTIVE`) VALUES
-(1, 1, '10105856', 'Product New', 'P', 1, '10.0000', '14.0000', 2, '40.0000', '15.8200', '', b'0', NULL, NULL, 'Large description', '', b'1', b'0', b'1'),
-(2, 2, '10000', 'Libreta', 'P', 1, '1.5000', '2.1000', 2, '0.0000', '0.0000', 'zVsRbsrse6C_nvVM5EzwsEe4Op_V-tdY.jpg', b'0', NULL, NULL, 'Libreta WWWWW', '', b'0', b'0', b'1'),
-(3, 1, '123456789', 'Cartera Hugo Boss', 'P', 1, '100.0000', '1000.0000', 2, '900.0000', '0.0000', '', b'0', NULL, NULL, 'efefwefwef', '', b'1', b'0', b'1'),
-(4, 1, '986635896', 'Desayuno americano', 'P', 1, '100.0000', '500.0000', 2, '0.0000', '565.0000', NULL, b'0', NULL, NULL, '', '', b'0', b'0', b'1'),
-(5, 5, '15896325eee', 'BOTA 0025', 'P', 1, '100.0000', '150.0000', 2, '50.0000', '169.5000', NULL, b'0', NULL, NULL, '', '', b'1', b'0', b'1'),
-(6, 5, '100000', 'BOTA 0025 TALLA 7', 'P', 1, '0.0000', '0.0000', 2, '0.0000', '0.0000', NULL, b'0', NULL, NULL, '', NULL, b'0', b'0', b'1'),
-(8, 2, '100030', 'BOTA 0025 TALLA 88', 'P', 1, '0.0000', '0.0000', 2, '0.0000', '0.0000', NULL, b'0', NULL, NULL, '', NULL, b'0', b'0', b'1'),
-(9, 9, '15896596', 'Test', 'P', 2, '0.0000', '0.0000', 2, '0.0000', '0.0000', NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
-(10, 10, '78966569', 'Test 2', 'P', 2, '100.0000', '150.0000', 2, '50.0000', '169.5000', NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
-(11, 1, '789456789', 'ewfwef', 'P', 1, '10.0000', '15.0000', 2, '50.0000', '16.9500', NULL, b'0', NULL, NULL, 'wefewfwef', NULL, b'1', b'0', b'1'),
-(12, 1, '789965', 'dfdslkfjsdlfkj', 'P', 1, '10.0000', '15.0000', 1, '50.0000', '15.0000', NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
-(13, 1, 'efewfwef', '23432423', 'P', 1, '10.0000', '71.0000', 2, '610.0000', '80.2300', NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
-(14, 1, '89789', '789789', 'P', 1, '89.0000', '89.0000', 2, '0.0000', '100.5700', NULL, b'0', NULL, NULL, 'ewfewfewfewfewf', NULL, b'1', b'0', b'1'),
-(15, 1, '34234', '234234', 'P', 1, '10.0000', '10.0000', 1, '0.0000', '10.0000', NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
-(16, 1, '4398340598304', 'TEST MODIFICADOR', 'P', 1, '10.0000', '15.0000', 2, '50.0000', '16.9500', NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1');
+(1, 1, '10105856', 'Product New', 'P', 1, 10.0000, 14.0000, 2, 40.0000, 15.8200, '', b'0', NULL, NULL, 'Large description', '', b'1', b'0', b'1'),
+(2, 2, '10000', 'Libreta', 'P', 1, 1.5000, 2.1000, 2, 0.0000, 0.0000, 'zVsRbsrse6C_nvVM5EzwsEe4Op_V-tdY.jpg', b'0', NULL, NULL, 'Libreta WWWWW', '', b'0', b'0', b'1'),
+(3, 1, '123456789', 'Cartera Hugo Boss', 'P', 1, 100.0000, 1000.0000, 2, 900.0000, 0.0000, '', b'0', NULL, NULL, 'efefwefwef', '', b'1', b'0', b'1'),
+(4, 1, '986635896', 'Desayuno americano', 'P', 1, 100.0000, 500.0000, 2, 0.0000, 565.0000, NULL, b'0', NULL, NULL, '', '', b'0', b'0', b'1'),
+(5, 5, '15896325eee', 'BOTA 0025', 'P', 1, 100.0000, 150.0000, 2, 50.0000, 169.5000, NULL, b'0', NULL, NULL, '', '', b'1', b'0', b'1'),
+(6, 5, '100000', 'BOTA 0025 TALLA 7', 'P', 1, 0.0000, 0.0000, 2, 0.0000, 0.0000, NULL, b'0', NULL, NULL, '', NULL, b'0', b'0', b'1'),
+(8, 2, '100030', 'BOTA 0025 TALLA 88', 'P', 1, 0.0000, 0.0000, 2, 0.0000, 0.0000, NULL, b'0', NULL, NULL, '', NULL, b'0', b'0', b'1'),
+(9, 9, '15896596', 'Test', 'P', 2, 0.0000, 0.0000, 2, 0.0000, 0.0000, NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
+(10, 10, '78966569', 'Test 2', 'P', 2, 100.0000, 150.0000, 2, 50.0000, 169.5000, NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
+(11, 1, '789456789', 'ewfwef', 'P', 1, 10.0000, 15.0000, 2, 50.0000, 16.9500, NULL, b'0', NULL, NULL, 'wefewfwef', NULL, b'1', b'0', b'1'),
+(12, 1, '789965', 'dfdslkfjsdlfkj', 'P', 1, 10.0000, 15.0000, 1, 50.0000, 15.0000, NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
+(13, 1, 'efewfwef', '23432423', 'P', 1, 10.0000, 71.0000, 2, 610.0000, 80.2300, NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
+(14, 1, '89789', '789789', 'P', 1, 89.0000, 89.0000, 2, 0.0000, 100.5700, NULL, b'0', NULL, NULL, 'ewfewfewfewfewf', NULL, b'1', b'0', b'1'),
+(15, 1, '34234', '234234', 'P', 1, 10.0000, 10.0000, 1, 0.0000, 10.0000, NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1'),
+(16, 1, '4398340598304', 'TEST MODIFICADOR', 'P', 1, 10.0000, 15.0000, 2, 50.0000, 16.9500, NULL, b'0', NULL, NULL, '', NULL, b'1', b'0', b'1');
 
 -- --------------------------------------------------------
 
@@ -280,15 +308,17 @@ INSERT INTO `app_item` (`ID`, `ID_PARENT`, `BARCODE`, `NAME`, `ID_TYPE_ITEM`, `I
 -- Table structure for table `app_log`
 --
 
-CREATE TABLE `app_log` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_log`;
+CREATE TABLE IF NOT EXISTS `app_log` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `USER` varchar(100) NOT NULL,
   `MODULE` varchar(100) NOT NULL,
   `MODULE_FIELD` varchar(255) NOT NULL,
   `ACTIVITY` varchar(255) NOT NULL,
   `VALUE` varchar(255) NOT NULL,
-  `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -296,41 +326,50 @@ CREATE TABLE `app_log` (
 -- Table structure for table `app_promotion`
 --
 
-CREATE TABLE `app_promotion` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_promotion`;
+CREATE TABLE IF NOT EXISTS `app_promotion` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `CODE` varchar(50) NOT NULL,
   `NAME` varchar(100) NOT NULL,
   `DESCRIPTION` varchar(2000) NOT NULL,
   `ID_TYPE_PROMOTION` varchar(2) NOT NULL,
   `VALUE` decimal(10,4) DEFAULT NULL,
   `TYPE_DISC` enum('PERCENT','AMOUNT') DEFAULT NULL,
-  `ID_ITEM` int(11) DEFAULT NULL,
+  `ID_ITEM` int DEFAULT NULL,
   `INIT` datetime DEFAULT NULL,
   `END` datetime DEFAULT NULL,
   `IMAGE` text,
   `LINK` text NOT NULL,
   `REGULAR_PRICE` decimal(10,4) NOT NULL,
   `PROMO_PRICE` decimal(10,4) NOT NULL,
-  `LIMIT_EXCHANGE` int(11) DEFAULT '0',
-  `LIMIT_PER_DAY` int(11) NOT NULL DEFAULT '0',
-  `REDIMM` int(11) DEFAULT NULL,
-  `LIMIT_PER_CUSTOMER` int(11) NOT NULL DEFAULT '0',
-  `LIMIT_PER_DAY_CUSTOMER` int(11) NOT NULL DEFAULT '0',
-  `ID_ENTERPRISE` int(11) NOT NULL DEFAULT '0',
+  `LIMIT_EXCHANGE` int DEFAULT '0',
+  `LIMIT_PER_DAY` int NOT NULL DEFAULT '0',
+  `REDIMM` int DEFAULT NULL,
+  `LIMIT_PER_CUSTOMER` int NOT NULL DEFAULT '0',
+  `LIMIT_PER_DAY_CUSTOMER` int NOT NULL DEFAULT '0',
+  `ID_ENTERPRISE` int NOT NULL DEFAULT '0',
   `SERIE` varchar(50) DEFAULT NULL,
-  `S_INIT` int(11) DEFAULT NULL,
-  `S_END` int(11) DEFAULT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `S_INIT` int DEFAULT NULL,
+  `S_END` int DEFAULT NULL,
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `CODE` (`CODE`,`ID_ITEM`),
+  KEY `ID_TYPE_PROMOTION` (`ID_TYPE_PROMOTION`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_promotion`
 --
 
 INSERT INTO `app_promotion` (`ID`, `CODE`, `NAME`, `DESCRIPTION`, `ID_TYPE_PROMOTION`, `VALUE`, `TYPE_DISC`, `ID_ITEM`, `INIT`, `END`, `IMAGE`, `LINK`, `REGULAR_PRICE`, `PROMO_PRICE`, `LIMIT_EXCHANGE`, `LIMIT_PER_DAY`, `REDIMM`, `LIMIT_PER_CUSTOMER`, `LIMIT_PER_DAY_CUSTOMER`, `ID_ENTERPRISE`, `SERIE`, `S_INIT`, `S_END`, `ACTIVE`) VALUES
-(1, 'PBCL6L6O3JJDDG20232208341956', 'WHOPPER DOBLE', 'WHOPPER DOBLE 2023', 'PI', NULL, NULL, NULL, '2023-08-19 00:00:00', '2023-09-09 00:00:00', NULL, '', '0.0000', '0.0000', 0, 0, NULL, 0, 0, 0, '', NULL, NULL, b'1'),
-(2, 'PBCLMWWOMABT1J20242104120739', 'CUPON PROMO 2 BK JR QUESO', 'No acumulable con otras promociones o descuentos, incluye 2 hamburguesas con 1 carne de 48gr c/u. 2 gaseosa pequeña de 12 oz c/u y 2 papas pequeñas. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacio', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-12 00:00:00', '8w1NPJ3NL80cEGiBmBW7TvIFZNCod7yv.jpeg', 'https://www.bk.com.co/cupones/?coupon=promo-2-bk-jr-queso&id=2791', '0.0000', '0.0000', 0, 0, NULL, 0, 0, 0, '', NULL, NULL, b'1'),
-(3, 'PBCLISUI3AEYXD20242204360755', 'BK DOBLE', 'No acumulable con otras promociones o descuentos, el combo incluye hamburguesa BK Doble de carne de 48 gr, 1 gaseosa pequeña de 12 oz y 1 papas pequeñas. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-30 00:00:00', 'FFzEEmePbqGS9FBvX_-Ka5tMDcbfoPIG.jpeg', 'https://www.bk.com.co/cupones/?coupon=bk-doble&id=3312', '23700.0000', '16900.0000', 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1');
+(2, 'PBCLMWWOMABT1J20242104120739', 'PROMO 2 BK JR QUESO', 'No acumulable con otras promociones o descuentos, incluye 2 hamburguesas con 1 carne de 48gr c/u. 2 gaseosa pequeña de 12 oz c/u y 2 papas pequeñas. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-30 00:00:00', 'E8VTjp-unuWpcQmldqXeQ8sIsSTdJahk.jpg', 'https://www.bk.com.co/cupones/?coupon=promo-2-bk-jr-queso&id=2791', 33400.0000, 23900.0000, 10000, 0, NULL, 0, 0, 0, '', NULL, NULL, b'1'),
+(3, 'PBCLISUI3AEYXD20242204360755', 'BK DOBLE', 'No acumulable con otras promociones o descuentos, el combo incluye hamburguesa BK Doble de carne de 48 gr, 1 gaseosa pequeña de 12 oz y 1 papas pequeñas. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-30 00:00:00', 'nRLrquebvTF4qejCCzmt4lc3MkT9xzoY.jpg', 'https://www.bk.com.co/cupones/?coupon=bk-doble&id=3312', 23700.0000, 16900.0000, 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1'),
+(4, 'PBCLSDVS8HSN7E20241004140840', 'WHOPPER JR+BBQ BURGER', 'No acumulable con otras promociones o descuentos, incluye 2 hamburguesas con carne de 48gr. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-30 00:00:00', 'AMEbAfnzWuHO6byqVRZxNe2JLNb0mXY9.jpg', 'https://www.bk.com.co/cupones/?coupon=whopper-jrbbq-burger&id=3307', 25800.0000, 16900.0000, 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1'),
+(5, 'PBCL5BJIH1KW9H20241104370806', 'WHOPPER JR CON YUCAS', 'No acumulable con otras promociones o descuentos, El combo incluye Hamburguesa Whopper ® jr de carne de 48 gr y 1 yucas x 8und Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-25 00:00:00', 'sXXjB17w2dyb9LbAQDODQInySRnjSfH4.jpg', 'https://www.bk.com.co/cupones/?coupon=whopper-jr-con-yucas&id=3309', 29700.0000, 14900.0000, 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1'),
+(6, 'PBCL2R9KB2TT1D20241204150805', 'MEGASTACKER SENCILLA', 'No acumulable con otras promociones o descuentos, el combo incluye una hamburguesa con 1 carne de 113 g y 1 gaseosas pequeña de 12 oz c/u. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-30 00:00:00', 'fd2LsMSA1fHHjuf5FI2RM2-87HuRBAZT.jpg', 'https://www.bk.com.co/cupones/?coupon=megastacker-sencilla&id=3310', 32300.0000, 20900.0000, 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1'),
+(7, 'PBCLV4TDL5O8H520241204180814', 'WHOPPER JR +BK CHICKEN', 'No acumulable con otras promociones o descuentos, el combo incluye una hamburguesa con 1 carne de 48g y una Bk Chicken con un Filete de pollo de 78g, 2 gaseosas pequeñas de 12 oz c/u y 2 papas pequeñas Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-01 00:00:00', '2024-04-30 00:00:00', 'u8ARn1a7zfrgDdNzeMhIFfEoujof44jR.jpg', 'https://www.bk.com.co/cupones/?coupon=whopper-jr-bk-chicken&id=3308', 45400.0000, 25900.0000, 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1'),
+(8, 'PBCLEQ6NK4J05G20241204200858', 'PROMO CONO SENCILLO', 'El cono incluye 2 vueltas y media de helado. No Aplica para domicilios solo para Restaurante. Es indispensable presentar el cupón para redimir la promoción. La imagen del cupón es de referencia y puede ser diferente al producto final entregado.', 'PC', NULL, NULL, NULL, '2024-04-01 00:00:00', '2024-04-30 00:00:00', 'msi1Sc6XZvAiTBUE6tdh7ya1ZxwhmUDR.jpg', 'https://www.bk.com.co/cupones/?coupon=promo-cono-sencillo&id=2445', 3500.0000, 2000.0000, 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1'),
+(9, 'PBCL2H8I1MZ13B20241204220801', 'PROMO SUNDAE', 'No acumulable con otras promociones o descuentos, el combo incluye un sundae de cualquier sabor (frutos rojos, arequipe o chocolate, sujeto a disponibilidad) y unas papas pequeñas. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-01 00:00:00', '2024-04-30 00:00:00', '8MWWEpyzjwtHTQYK7n6YzZ3TNsN_SiSz.jpg', 'https://www.bk.com.co/cupones/?coupon=promo-sundae&id=3311', 13300.0000, 8900.0000, 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1');
 
 -- --------------------------------------------------------
 
@@ -338,13 +377,15 @@ INSERT INTO `app_promotion` (`ID`, `CODE`, `NAME`, `DESCRIPTION`, `ID_TYPE_PROMO
 -- Table structure for table `app_promotion_serial`
 --
 
-CREATE TABLE `app_promotion_serial` (
-  `ID` int(11) NOT NULL,
-  `ID_PROMOTION` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_promotion_serial`;
+CREATE TABLE IF NOT EXISTS `app_promotion_serial` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_PROMOTION` int NOT NULL,
   `SERIE` varchar(50) NOT NULL,
-  `INITIAL` int(11) NOT NULL,
-  `FINAL` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+  `INITIAL` int NOT NULL,
+  `FINAL` int NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -352,11 +393,13 @@ CREATE TABLE `app_promotion_serial` (
 -- Table structure for table `app_rol`
 --
 
-CREATE TABLE `app_rol` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_rol`;
+CREATE TABLE IF NOT EXISTS `app_rol` (
+  `ID` int NOT NULL,
   `NAME` varchar(50) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_rol`
@@ -372,10 +415,11 @@ INSERT INTO `app_rol` (`ID`, `NAME`, `ACTIVE`) VALUES
 -- Table structure for table `app_sale`
 --
 
-CREATE TABLE `app_sale` (
-  `ID` int(11) NOT NULL,
-  `ID_USER` int(11) NOT NULL,
-  `ID_ADDRESS` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_sale`;
+CREATE TABLE IF NOT EXISTS `app_sale` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_USER` int NOT NULL,
+  `ID_ADDRESS` int NOT NULL,
   `RESOLUTION_AUTH` varchar(50) NOT NULL,
   `SERIE_AUTH` varchar(50) NOT NULL,
   `NUMBER_AUTH` varchar(20) NOT NULL,
@@ -389,9 +433,12 @@ CREATE TABLE `app_sale` (
   `CHANGED` decimal(10,4) NOT NULL,
   `NOTES` varchar(255) NOT NULL,
   `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ID_USER_CONSOLE` int(11) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ID_USER_CONSOLE` int NOT NULL,
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ID_USER` (`ID_USER`,`ID_ADDRESS`),
+  KEY `ID_USER_CONSOLE` (`ID_USER_CONSOLE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -399,20 +446,25 @@ CREATE TABLE `app_sale` (
 -- Table structure for table `app_sale_item`
 --
 
-CREATE TABLE `app_sale_item` (
-  `ID` int(11) NOT NULL,
-  `ID_SALE` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_sale_item`;
+CREATE TABLE IF NOT EXISTS `app_sale_item` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_SALE` int NOT NULL,
   `BARCODE` varchar(50) NOT NULL,
   `NAME` varchar(255) NOT NULL,
-  `ID_CATEGORY` int(11) NOT NULL,
-  `ID_ITEM` int(11) NOT NULL,
+  `ID_CATEGORY` int NOT NULL,
+  `ID_ITEM` int NOT NULL,
   `PRICE_COST` decimal(10,4) NOT NULL,
   `PRICE_SELL` decimal(10,4) NOT NULL,
   `QUANTITY` decimal(10,2) NOT NULL,
-  `ID_TAX` int(11) NOT NULL,
+  `ID_TAX` int NOT NULL,
   `TAXES` decimal(10,4) NOT NULL,
-  `TOTAL` decimal(10,4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `TOTAL` decimal(10,4) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ID_CATEGORY` (`ID_CATEGORY`,`ID_ITEM`),
+  KEY `ID_TAX` (`ID_TAX`),
+  KEY `ID_SALE` (`ID_SALE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -420,14 +472,17 @@ CREATE TABLE `app_sale_item` (
 -- Table structure for table `app_sale_payment`
 --
 
-CREATE TABLE `app_sale_payment` (
-  `ID` int(11) NOT NULL,
-  `ID_SALE` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_sale_payment`;
+CREATE TABLE IF NOT EXISTS `app_sale_payment` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_SALE` int NOT NULL,
   `TYPE_PAYMENT` varchar(10) NOT NULL,
   `NUMBER` varchar(50) NOT NULL,
   `AMOUNT` decimal(10,4) NOT NULL,
-  `TOTAL` decimal(10,4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `TOTAL` decimal(10,4) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ID_SALE` (`ID_SALE`,`TYPE_PAYMENT`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -435,12 +490,16 @@ CREATE TABLE `app_sale_payment` (
 -- Table structure for table `app_sale_tax`
 --
 
-CREATE TABLE `app_sale_tax` (
-  `ID` int(11) NOT NULL,
-  `ID_SALE` int(11) NOT NULL,
-  `ID_TAX` int(11) NOT NULL,
-  `AMOUNT` decimal(10,4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `app_sale_tax`;
+CREATE TABLE IF NOT EXISTS `app_sale_tax` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_SALE` int NOT NULL,
+  `ID_TAX` int NOT NULL,
+  `AMOUNT` decimal(10,4) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ID_SALE` (`ID_SALE`),
+  KEY `ID_TAX` (`ID_TAX`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -448,14 +507,16 @@ CREATE TABLE `app_sale_tax` (
 -- Table structure for table `app_store`
 --
 
-CREATE TABLE `app_store` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_store`;
+CREATE TABLE IF NOT EXISTS `app_store` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `NAME` varchar(255) NOT NULL,
   `ADDRESS` varchar(255) NOT NULL,
   `IMAGE` text NOT NULL,
   `DATA_JSON` text NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -463,20 +524,22 @@ CREATE TABLE `app_store` (
 -- Table structure for table `app_tax`
 --
 
-CREATE TABLE `app_tax` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_tax`;
+CREATE TABLE IF NOT EXISTS `app_tax` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `NAME` varchar(255) NOT NULL,
   `PERCENT` decimal(3,2) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_tax`
 --
 
 INSERT INTO `app_tax` (`ID`, `NAME`, `PERCENT`, `ACTIVE`) VALUES
-(1, 'EXEMPTO', '0.00', b'1'),
-(2, 'IVA', '0.13', b'1');
+(1, 'EXEMPTO', 0.00, b'1'),
+(2, 'IVA', 0.13, b'1');
 
 -- --------------------------------------------------------
 
@@ -484,10 +547,12 @@ INSERT INTO `app_tax` (`ID`, `NAME`, `PERCENT`, `ACTIVE`) VALUES
 -- Table structure for table `app_type_item`
 --
 
-CREATE TABLE `app_type_item` (
+DROP TABLE IF EXISTS `app_type_item`;
+CREATE TABLE IF NOT EXISTS `app_type_item` (
   `ID` varchar(1) NOT NULL,
-  `NAME` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `NAME` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `app_type_item`
@@ -505,11 +570,13 @@ INSERT INTO `app_type_item` (`ID`, `NAME`) VALUES
 -- Table structure for table `app_type_payment`
 --
 
-CREATE TABLE `app_type_payment` (
+DROP TABLE IF EXISTS `app_type_payment`;
+CREATE TABLE IF NOT EXISTS `app_type_payment` (
   `ID` varchar(2) NOT NULL,
   `NAME` varchar(255) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_type_payment`
@@ -525,11 +592,13 @@ INSERT INTO `app_type_payment` (`ID`, `NAME`, `ACTIVE`) VALUES
 -- Table structure for table `app_type_promotion`
 --
 
-CREATE TABLE `app_type_promotion` (
+DROP TABLE IF EXISTS `app_type_promotion`;
+CREATE TABLE IF NOT EXISTS `app_type_promotion` (
   `ID` varchar(2) NOT NULL,
   `NAME` varchar(100) NOT NULL,
-  `ACTIVE` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `ACTIVE` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_type_promotion`
@@ -547,8 +616,9 @@ INSERT INTO `app_type_promotion` (`ID`, `NAME`, `ACTIVE`) VALUES
 -- Table structure for table `app_user`
 --
 
-CREATE TABLE `app_user` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `app_user`;
+CREATE TABLE IF NOT EXISTS `app_user` (
+  `ID` int NOT NULL AUTO_INCREMENT,
   `FULLNAME` varchar(255) DEFAULT NULL,
   `USERNAME` varchar(255) NOT NULL,
   `AUTHKEY` varchar(32) NOT NULL,
@@ -556,7 +626,7 @@ CREATE TABLE `app_user` (
   `password_reset_token` varchar(255) DEFAULT NULL,
   `EMAIL` varchar(255) NOT NULL,
   `PHONE` varchar(20) NOT NULL,
-  `ID_ROL` int(11) NOT NULL,
+  `ID_ROL` int NOT NULL,
   `BITHDATE` varchar(10) DEFAULT NULL,
   `IDENTIFICATION` varchar(50) DEFAULT NULL,
   `IS_OTP` bit(1) NOT NULL,
@@ -564,8 +634,12 @@ CREATE TABLE `app_user` (
   `CREATED_AT` datetime NOT NULL,
   `LAST_ACCESS` datetime NOT NULL,
   `ACCESS_TOKEN` varchar(255) DEFAULT NULL,
-  `verification_token` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  `verification_token` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `USERNAME` (`USERNAME`),
+  UNIQUE KEY `password_reset_token` (`password_reset_token`),
+  KEY `ID_ROL` (`ID_ROL`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_user`
@@ -586,309 +660,18 @@ INSERT INTO `app_user` (`ID`, `FULLNAME`, `USERNAME`, `AUTHKEY`, `PASSWORD`, `pa
 -- Table structure for table `app_user_promotion`
 --
 
-CREATE TABLE `app_user_promotion` (
-  `ID` int(11) NOT NULL,
-  `ID_USER` int(11) NOT NULL,
-  `ID_SALE` int(11) NOT NULL,
-  `ID_PROMOCION` int(11) NOT NULL,
-  `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `app_ads`
---
-ALTER TABLE `app_ads`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_category`
---
-ALTER TABLE `app_category`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_TAX` (`ID_TAX`);
-
---
--- Indexes for table `app_country`
---
-ALTER TABLE `app_country`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_customer`
---
-ALTER TABLE `app_customer`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `USERNAME` (`USERNAME`,`EMAIL`);
-
---
--- Indexes for table `app_customer_address`
---
-ALTER TABLE `app_customer_address`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_USER` (`ID_USER`);
-
---
--- Indexes for table `app_enterprise`
---
-ALTER TABLE `app_enterprise`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `CODE` (`CODE`);
-
---
--- Indexes for table `app_fiscal`
---
-ALTER TABLE `app_fiscal`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_gender`
---
-ALTER TABLE `app_gender`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_global_config`
---
-ALTER TABLE `app_global_config`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_item`
---
-ALTER TABLE `app_item`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `BARCODE` (`BARCODE`),
-  ADD KEY `ID_CATEGORY` (`ID_CATEGORY`),
-  ADD KEY `ID_TAX` (`ID_TAX`),
-  ADD KEY `ID_PARENT` (`ID_PARENT`);
-
---
--- Indexes for table `app_log`
---
-ALTER TABLE `app_log`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_promotion`
---
-ALTER TABLE `app_promotion`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `CODE` (`CODE`,`ID_ITEM`),
-  ADD KEY `ID_TYPE_PROMOTION` (`ID_TYPE_PROMOTION`);
-
---
--- Indexes for table `app_promotion_serial`
---
-ALTER TABLE `app_promotion_serial`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_rol`
---
-ALTER TABLE `app_rol`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_sale`
---
-ALTER TABLE `app_sale`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_USER` (`ID_USER`,`ID_ADDRESS`),
-  ADD KEY `ID_USER_CONSOLE` (`ID_USER_CONSOLE`);
-
---
--- Indexes for table `app_sale_item`
---
-ALTER TABLE `app_sale_item`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_CATEGORY` (`ID_CATEGORY`,`ID_ITEM`),
-  ADD KEY `ID_TAX` (`ID_TAX`),
-  ADD KEY `ID_SALE` (`ID_SALE`);
-
---
--- Indexes for table `app_sale_payment`
---
-ALTER TABLE `app_sale_payment`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_SALE` (`ID_SALE`,`TYPE_PAYMENT`);
-
---
--- Indexes for table `app_sale_tax`
---
-ALTER TABLE `app_sale_tax`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_SALE` (`ID_SALE`),
-  ADD KEY `ID_TAX` (`ID_TAX`);
-
---
--- Indexes for table `app_store`
---
-ALTER TABLE `app_store`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_tax`
---
-ALTER TABLE `app_tax`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_type_item`
---
-ALTER TABLE `app_type_item`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_type_payment`
---
-ALTER TABLE `app_type_payment`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_type_promotion`
---
-ALTER TABLE `app_type_promotion`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `app_user`
---
-ALTER TABLE `app_user`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `USERNAME` (`USERNAME`),
-  ADD UNIQUE KEY `password_reset_token` (`password_reset_token`),
-  ADD KEY `ID_ROL` (`ID_ROL`);
-
---
--- Indexes for table `app_user_promotion`
---
-ALTER TABLE `app_user_promotion`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_USER` (`ID_USER`),
-  ADD KEY `ID_SALE` (`ID_SALE`),
-  ADD KEY `ID_PROMOCION` (`ID_PROMOCION`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `app_ads`
---
-ALTER TABLE `app_ads`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_category`
---
-ALTER TABLE `app_category`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `app_customer`
---
-ALTER TABLE `app_customer`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `app_customer_address`
---
-ALTER TABLE `app_customer_address`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_enterprise`
---
-ALTER TABLE `app_enterprise`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `app_fiscal`
---
-ALTER TABLE `app_fiscal`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_gender`
---
-ALTER TABLE `app_gender`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `app_item`
---
-ALTER TABLE `app_item`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `app_log`
---
-ALTER TABLE `app_log`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_promotion`
---
-ALTER TABLE `app_promotion`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `app_promotion_serial`
---
-ALTER TABLE `app_promotion_serial`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_sale`
---
-ALTER TABLE `app_sale`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_sale_item`
---
-ALTER TABLE `app_sale_item`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_sale_payment`
---
-ALTER TABLE `app_sale_payment`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_sale_tax`
---
-ALTER TABLE `app_sale_tax`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_store`
---
-ALTER TABLE `app_store`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `app_tax`
---
-ALTER TABLE `app_tax`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `app_user`
---
-ALTER TABLE `app_user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `app_user_promotion`
---
-ALTER TABLE `app_user_promotion`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+DROP TABLE IF EXISTS `app_user_promotion`;
+CREATE TABLE IF NOT EXISTS `app_user_promotion` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID_USER` int NOT NULL,
+  `ID_SALE` int NOT NULL,
+  `ID_PROMOCION` int NOT NULL,
+  `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `ID_USER` (`ID_USER`),
+  KEY `ID_SALE` (`ID_SALE`),
+  KEY `ID_PROMOCION` (`ID_PROMOCION`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

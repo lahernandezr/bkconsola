@@ -31,6 +31,7 @@ return array(
     'kartik\\dialog\\' => array($vendorDir . '/kartik-v/yii2-dialog/src'),
     'kartik\\datetime\\' => array($vendorDir . '/kartik-v/yii2-widget-datetimepicker/src'),
     'kartik\\daterange\\' => array($vendorDir . '/kartik-v/yii2-date-range/src'),
+    'kartik\\date\\' => array($vendorDir . '/kartik-v/yii2-widget-datepicker/src'),
     'kartik\\color\\' => array($vendorDir . '/kartik-v/yii2-widget-colorinput/src'),
     'kartik\\bs4dropdown\\' => array($vendorDir . '/kartik-v/yii2-bootstrap4-dropdown/src'),
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base/src'),

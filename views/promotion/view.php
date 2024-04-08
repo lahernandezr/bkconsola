@@ -1,13 +1,13 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Promotion */
 
 $this->title = $model->NAME . ' ' . $model->CODE;
-$this->params['breadcrumbs'][] = ['label' => 'Promociones', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Cupones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Actualizar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Dar de Baja', ['delete', 'ID' => $model->ID], [
-            'class' => 'btn btn-danger',
+            'class' => 'btn btn-primary',
             'data' => [
                 'confirm' => '¿Estas seguro de dar de baja el registro?',
                 'method' => 'post',
@@ -39,13 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'ID_TYPE_PROMOTION',
                 'value' => $model->typePromotion->NAME  
             ],             
-            'VALUE',
-            'TYPE_DISC',
-            'ID_ITEM',
-            'INIT',
-            'END',
+            // 'VALUE',
+            // 'TYPE_DISC',
+            // 'ID_ITEM',
+            'INIT:date',
+            'END:date',
             // 'IMAGE:ntext',
-            'LINK:ntext',
+            'LINK:url',
             'LIMIT_EXCHANGE',
             'REDIMM',
             'ACTIVE:boolean',

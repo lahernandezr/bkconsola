@@ -1,7 +1,7 @@
 <?php
 
 use kartik\number\NumberControl;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */

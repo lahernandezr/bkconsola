@@ -3,7 +3,7 @@
 use app\models\Item;
 use app\models\TypePromotion;
 use app\models\GeneratorCode;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\daterange\DateRangePicker;
@@ -12,21 +12,21 @@ use kartik\file\FileInput;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
 use yii\web\View;
-use kartik\datetime\DateTimePicker;
+// use kartik\datetime\DateTimePicker;
+use kartik\date\DatePicker;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Promotion */
-/* @var $form yii\bootstrap4\ActiveForm */
+/** @var yii\web\View $this */
+/** @var app\models\Promotion $model */
+/** @var yii\bootstrap4\ActiveForm $form */
 
 $url = \yii\helpers\Url::to(['item-list']);
-
 
 $dataList = Item::find()->andWhere(['ID' => $model->ID_ITEM])->all();
 $data = ArrayHelper::map($dataList, 'ID', 'NAME');
 
 $gcode = new GeneratorCode();
-$code = $gcode->generate_string("PBCL",date('YHmids'),10);
-if($this->context->action->id == 'update' ) 
+$code = $gcode->generate_string("PBCL", date('YHmids'), 10);
+if ($this->context->action->id == 'update')
     $code = $model->CODE;
 ?>
 
@@ -38,32 +38,37 @@ if($this->context->action->id == 'update' )
         <div class="col-md-8">
 
             <div class="row">
+
                 <div class="col-md-4">
-                    <?= $form->field($model, 'CODE')->textInput(['maxlength' => true, 'value' => $code, 'readonly' => true ]) ?>
+                    <?= $form->field($model, 'CODE')->textInput(['maxlength' => true, 'value' => $code, 'readonly' => true]) ?>
                 </div>
-                
+
             </div>
 
             <div class="row">
+
                 <div class="col-md-12">
                     <?= $form->field($model, 'NAME')->textInput(['maxlength' => true]) ?>
                 </div>
+
                 <div class="col-md-12">
-                <?= $form->field($model, 'DESCRIPTION')->textarea(['maxlength' => true,'rows'=>5]) ?>
+                    <?= $form->field($model, 'DESCRIPTION')->textarea(['maxlength' => true, 'rows' => 5]) ?>
                 </div>
+
                 <div class="col-md-12">
                     <?= $form->field($model, 'LINK')->textInput(['maxlength' => false]) ?>
                 </div>
+
             </div>
 
-            
-
             <div class="row">
+
                 <div class="col-md-4">
                     <?= $form->field($model, 'ID_TYPE_PROMOTION')->dropDownList(
                         ArrayHelper::map(TypePromotion::find()->where(["ACTIVE" => true])->all(), 'ID', 'NAME'),
                         [
                             'prompt' => 'Selección Tipo Promoción',
+                            'options'=>['PC'=>['Selected'=>true]],
                             'onChange' => '                            
                             if($(this).val() == ""){
                                 $("#promotion-type_disc").prop("disabled",true);
@@ -89,33 +94,34 @@ if($this->context->action->id == 'update' )
                                 $("#promotion-type_disc").prop("disabled",false);
                                 $("#promotion-value-disp").prop("disabled",false);
                                 $("#promotion-id_item").prop("disabled",false);
-                            }'                             
+                            }'
                         ]
                     )
                     ?>
                 </div>
-                <div class="col-md-4">                    
+
+                <div class="col-md-4">
                     <?= $form->field($model, 'REGULAR_PRICE')->widget(NumberControl::class, [
-                                'maskedInputOptions' => [
-                                    'prefix' => '$',
-                                    'min' => 0,
-                                    'max' => 999999,
-                                    'allowMinus' => false
-                                ],
+                        'maskedInputOptions' => [
+                            'prefix' => '$',
+                            'min' => 0,
+                            'max' => 999999,
+                            'allowMinus' => false
+                        ],
 
-                            ]); ?>                    
+                    ]); ?>
                 </div>
-                <div class="col-md-4">                    
+                <div class="col-md-4">
                     <?= $form->field($model, 'PROMO_PRICE')->widget(NumberControl::class, [
-                                'maskedInputOptions' => [
-                                    'prefix' => '$',
-                                    'min' => 0,
-                                    'max' => 999999,
-                                    'allowMinus' => false
-                                ],
+                        'maskedInputOptions' => [
+                            'prefix' => '$',
+                            'min' => 0,
+                            'max' => 999999,
+                            'allowMinus' => false
+                        ],
 
-                            ]); ?>                    
-                </div>                
+                    ]); ?>
+                </div>
                 <?= $form->field($model, 'TYPE_DISC')->hiddenInput(['value' => $model->ID_ITEM])->label(false); ?>
                 <?= $form->field($model, 'VALUE')->hiddenInput(['value' => $model->VALUE])->label(false); ?>
                 <!--
@@ -137,7 +143,7 @@ if($this->context->action->id == 'update' )
                     ]); */ ?>
                 </div>
                 -->
-            </div>            
+            </div>
             <?= $form->field($model, 'ID_ITEM')->hiddenInput(['value' => $model->ID_ITEM])->label(false); ?>
 
             <?php /* $form->field($model, 'ID_ITEM')->widget(Select2::class, [
@@ -158,56 +164,53 @@ if($this->context->action->id == 'update' )
                     'templateResult' => new JsExpression('function (product) { return product.text; }'),
                     'templateSelection' => new JsExpression('function (product) { return product.text; }'),
                 ],
-            ]); */ ?>            
+            ]); */ ?>
 
             <div class="row">
                 <div class="col-md-4">
                     <?php //$form->field($model, 'INIT')->textInput() 
                     ?>
-
                     <?= $form->field($model, 'INIT')->widget(
-                            DateTimePicker::class,
-                            [
-                                'options' => ['placeholder' => 'Selecciona Fecha Inicio'],
-                                'convertFormat' => true,                               
-                                'pluginOptions' => [
-                                    'autoclose' => true,                                    
-                                    'todayHighlight' => true,
-                                    'format' => 'yyyy-MM-dd'
-                                ]
+                        DatePicker::class,
+                        [
+                            'options' => ['placeholder' => 'Selecciona Fecha Inicio'],
+                            'convertFormat' => true,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'todayHighlight' => true,
+                                'format' => 'yyyy-MM-dd'
                             ]
-                        ) ?>                    
+                        ]
+                    ) ?>
                 </div>
                 <div class="col-md-4">
                     <?php //$form->field($model, 'END')->textInput() 
                     ?>
                     <?= $form->field($model, 'END')->widget(
-                            DateTimePicker::class,
-                            [
-                                'options' => ['placeholder' => 'Selecciona Fecha Termino'],
-                                'convertFormat' => true,                               
-                                'pluginOptions' => [
-                                    'autoclose' => true,                                    
-                                    'todayHighlight' => true,
-                                    'format' => 'yyyy-MM-dd'
-                                ]
+                        DatePicker::class,
+                        [
+                            'options' => ['placeholder' => 'Selecciona Fecha Final'],
+                            'convertFormat' => true,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'todayHighlight' => true,
+                                'format' => 'yyyy-MM-dd'
                             ]
-                        ) ?>                     
+                        ]
+                    ) ?>
                 </div>
-                <div class="col-md-4">                    
+                <div class="col-md-4">
                     <?= $form->field($model, 'LIMIT_EXCHANGE')->widget(NumberControl::class, [
-                                'maskedInputOptions' => [
-                                    'prefix' => '',
-                                    'min' => 0,
-                                    'max' => 999999,
-                                    'allowMinus' => false
-                                ],
-
-                            ]); ?>                    
+                        'maskedInputOptions' => [
+                            'prefix' => '',
+                            'min' => 0,
+                            'max' => 999999,
+                            'allowMinus' => false
+                        ],
+                    ]); ?>
                 </div>
             </div>
 
-           
             <div class="row">
                 <!--
                 <div class="col-md-6">                    
@@ -219,7 +222,7 @@ if($this->context->action->id == 'update' )
                                     'allowMinus' => false
                                 ],
 
-                            ]); */?>                    
+                            ]); */ ?>                    
                 </div> 
                 <div class="col-md-6">                    
                     <?/* $form->field($model, 'LIMIT_PER_CUSTOMER')->widget(NumberControl::class, [
@@ -256,21 +259,20 @@ if($this->context->action->id == 'update' )
 
                             ]); */ ?>                    
                 </div>  
-                        -->              
+                        -->
             </div>
-          
+
             <div class="row">
                 <!--
                 <div class="col-md-6">
                     <?= $form->field($model, 'REDIMM')->textInput(['readonly' => true]) ?>
                 </div>
-                        -->
+                    -->
                 <div class="col-md-6">
-                    
-                </div>
-            </div>                        
-            <?= $form->field($model, 'ACTIVE')->checkbox(['checked' => ($this->context->action->id == 'create') ? true : $model->ACTIVE]) ?>
 
+                </div>
+            </div>
+            <?= $form->field($model, 'ACTIVE')->checkbox(['checked' => ($this->context->action->id == 'create') ? true : $model->ACTIVE]) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('GUARDAR', ['class' => 'btn btn-success']) ?>
@@ -280,7 +282,7 @@ if($this->context->action->id == 'update' )
 
         <div class="col-md-4">
             <div class="row">
-                <div class="col-md-12">            
+                <div class="col-md-12">
                     <?php if ($this->context->action->id == 'create') : ?>
                         <?= $form->field($model, 'file')->widget(FileInput::class, [
                             'options' => [
@@ -299,10 +301,10 @@ if($this->context->action->id == 'update' )
                             ],
                             'pluginOptions' => [
                                 'showUpload' => false,
-                                'initialPreview'=>[
+                                'initialPreview' => [
                                     Yii::$app->getHomeUrl() . 'uploads/promos/' . $model->IMAGE
                                 ],
-                                'initialPreviewAsData'=>true,
+                                'initialPreviewAsData' => true,
                             ],
                         ]);
                         ?>
@@ -314,35 +316,35 @@ if($this->context->action->id == 'update' )
                 </div>
                 <div class="col-md-12">    
                     <?= $form->field($model, 'S_INIT')->widget(NumberControl::class, [
-                                'maskedInputOptions' => [
-                                    'prefix' => '',
-                                    'min' => 0,
-                                    'max' => 999999,
-                                    'allowMinus' => false
-                                ],
+                        'maskedInputOptions' => [
+                            'prefix' => '',
+                            'min' => 0,
+                            'max' => 999999,
+                            'allowMinus' => false
+                        ],
 
-                            ]); ?>              
+                    ]); ?>              
                 </div>
                 <div class="col-md-12">    
                     <?= $form->field($model, 'S_END')->widget(NumberControl::class, [
-                                'maskedInputOptions' => [
-                                    'prefix' => '',
-                                    'min' => 0,
-                                    'max' => 999999,
-                                    'allowMinus' => false
-                                ],
+                        'maskedInputOptions' => [
+                            'prefix' => '',
+                            'min' => 0,
+                            'max' => 999999,
+                            'allowMinus' => false
+                        ],
 
-                            ]); ?>              
+                    ]); ?>              
                 </div>                
-                        -->
+                    -->
             </div>
         </div>
 
-    <?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
+    </div>
 </div>
-
-<?php 
+<?php
 $this->registerJs("
     $(document).ready( function () {
         setTimeout(function() { 

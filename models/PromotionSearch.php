@@ -5,12 +5,29 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Promotion;
+use kartik\daterange\DateRangeBehavior;
 
 /**
  * PromotionSearch represents the model behind the search form of `app\models\Promotion`.
  */
 class PromotionSearch extends Promotion
 {
+    public $created_at_range;
+    public $createTimeStart;
+    public $createTimeEnd;
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => DateRangeBehavior::className(), 
+                'attribute' => 'created_at_range',
+                'dateStartAttribute' => 'createTimeStart',
+                'dateEndAttribute' => 'createTimeEnd',
+            ]
+        ];
+     }
+
     /**
      * {@inheritdoc}
      */
@@ -21,6 +38,7 @@ class PromotionSearch extends Promotion
             [['CODE', 'NAME', 'DESCRIPTION', 'ID_TYPE_PROMOTION', 'TYPE_DISC', 'INIT', 'END', 'IMAGE', 'LINK'], 'safe'],
             [['VALUE'], 'number'],
             [['ACTIVE'], 'boolean'],
+            [['created_at_range'], 'safe'],
         ];
     }
 
@@ -58,13 +76,24 @@ class PromotionSearch extends Promotion
             return $dataProvider;
         }
 
+        if(!empty($this->created_at_range)) {
+            $fechas = explode(' - ', $this->created_at_range); 
+            if( (bool)strtotime($fechas[0]) && (bool)strtotime($fechas[1]) ){
+                $this->createTimeStart = $fechas[0];
+                $this->createTimeEnd = $fechas[1];
+            }
+        }
+
+        $query->andFilterWhere(['>=', 'END', $this->createTimeStart])
+        ->andFilterWhere(['<', 'END', $this->createTimeEnd]);
+
         // grid filtering conditions
         $query->andFilterWhere([
             'ID' => $this->ID,
             'VALUE' => $this->VALUE,
             'ID_ITEM' => $this->ID_ITEM,
-            'INIT' => $this->INIT,
-            'END' => $this->END,
+            // 'INIT' => $this->INIT,
+            // 'END' => $this->END,
             'LIMIT_EXCHANGE' => $this->LIMIT_EXCHANGE,
             'REDIMM' => $this->REDIMM,
             'ACTIVE' => $this->ACTIVE,
