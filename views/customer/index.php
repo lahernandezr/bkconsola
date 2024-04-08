@@ -71,11 +71,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'endAttribute'=>date('Y-m-d h:i:s'),
                     'presetDropdown' => true,
                     'pluginOptions' => [
-                        'timePicker' => true,
-                        'timePickerIncrement' => 1,
+                        'timePicker' => false,
                         'locale' => [
                             'format' => 'Y-m-d'
-                        ]
+                        ],
+                        'opens'=>'left'
                     ]
                 ])
             ],

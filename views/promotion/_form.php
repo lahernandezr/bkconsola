@@ -45,14 +45,15 @@ if($this->context->action->id == 'update' )
             </div>
 
             <div class="row">
-            <div class="col-md-12">
+                <div class="col-md-12">
                     <?= $form->field($model, 'NAME')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-12">
-                <?= $form->field($model, 'DESCRIPTION')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'DESCRIPTION')->textarea(['maxlength' => true,'rows'=>5]) ?>
                 </div>
-            
-                
+                <div class="col-md-12">
+                    <?= $form->field($model, 'LINK')->textInput(['maxlength' => false]) ?>
+                </div>
             </div>
 
             
@@ -60,7 +61,7 @@ if($this->context->action->id == 'update' )
             <div class="row">
                 <div class="col-md-4">
                     <?= $form->field($model, 'ID_TYPE_PROMOTION')->dropDownList(
-                        ArrayHelper::map(TypePromotion::find()->all(), 'ID', 'NAME'),
+                        ArrayHelper::map(TypePromotion::find()->where(["ACTIVE" => true])->all(), 'ID', 'NAME'),
                         [
                             'prompt' => 'Selección Tipo Promoción',
                             'onChange' => '                            
@@ -93,26 +94,53 @@ if($this->context->action->id == 'update' )
                     )
                     ?>
                 </div>
+                <div class="col-md-4">                    
+                    <?= $form->field($model, 'REGULAR_PRICE')->widget(NumberControl::class, [
+                                'maskedInputOptions' => [
+                                    'prefix' => '$',
+                                    'min' => 0,
+                                    'max' => 999999,
+                                    'allowMinus' => false
+                                ],
+
+                            ]); ?>                    
+                </div>
+                <div class="col-md-4">                    
+                    <?= $form->field($model, 'PROMO_PRICE')->widget(NumberControl::class, [
+                                'maskedInputOptions' => [
+                                    'prefix' => '$',
+                                    'min' => 0,
+                                    'max' => 999999,
+                                    'allowMinus' => false
+                                ],
+
+                            ]); ?>                    
+                </div>                
+                <?= $form->field($model, 'TYPE_DISC')->hiddenInput(['value' => $model->ID_ITEM])->label(false); ?>
+                <?= $form->field($model, 'VALUE')->hiddenInput(['value' => $model->VALUE])->label(false); ?>
+                <!--
                 <div class="col-md-4">
-                    <?= $form->field($model, 'TYPE_DISC')->dropDownList(
+                    <?php /* $form->field($model, 'TYPE_DISC')->dropDownList(
                         ['PERCENT' => 'PERCENT', 'AMOUNT' => 'AMOUNT'], [
                             'prompt' => 'Select Type Discount',
                                                       
-                            ]) ?>
+                            ]) */ ?>
                 </div>
                 <div class="col-md-4">
-                    <?=
+                    <?php /*
                     $form->field($model, 'VALUE')->widget(NumberControl::class, [
                         'maskedInputOptions' => [
                             'prefix' => '',
                             'suffix' => '',
                             'allowMinus' => false
                         ],
-                    ]); ?>
+                    ]); */ ?>
                 </div>
-            </div>
+                -->
+            </div>            
+            <?= $form->field($model, 'ID_ITEM')->hiddenInput(['value' => $model->ID_ITEM])->label(false); ?>
 
-            <?= $form->field($model, 'ID_ITEM')->widget(Select2::class, [
+            <?php /* $form->field($model, 'ID_ITEM')->widget(Select2::class, [
                 'data' => $data,
                 'options' => ['multiple'=>false, 'placeholder' => 'Search for a item ...'],
                 'pluginOptions' => [
@@ -130,10 +158,10 @@ if($this->context->action->id == 'update' )
                     'templateResult' => new JsExpression('function (product) { return product.text; }'),
                     'templateSelection' => new JsExpression('function (product) { return product.text; }'),
                 ],
-            ]); ?>            
+            ]); */ ?>            
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <?php //$form->field($model, 'INIT')->textInput() 
                     ?>
 
@@ -150,7 +178,7 @@ if($this->context->action->id == 'update' )
                             ]
                         ) ?>                    
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <?php //$form->field($model, 'END')->textInput() 
                     ?>
                     <?= $form->field($model, 'END')->widget(
@@ -165,12 +193,8 @@ if($this->context->action->id == 'update' )
                                 ]
                             ]
                         ) ?>                     
-                   </div>
-            </div>
-
-            <?= $form->field($model, 'LINK')->textInput(['maxlength' => false]) ?>
-            <div class="row">
-                <div class="col-md-6">                    
+                </div>
+                <div class="col-md-4">                    
                     <?= $form->field($model, 'LIMIT_EXCHANGE')->widget(NumberControl::class, [
                                 'maskedInputOptions' => [
                                     'prefix' => '',
@@ -181,8 +205,13 @@ if($this->context->action->id == 'update' )
 
                             ]); ?>                    
                 </div>
+            </div>
+
+           
+            <div class="row">
+                <!--
                 <div class="col-md-6">                    
-                    <?= $form->field($model, 'LIMIT_PER_CUSTOMER')->widget(NumberControl::class, [
+                    <?php /* $form->field($model, 'LIMIT_EXCHANGE')->widget(NumberControl::class, [
                                 'maskedInputOptions' => [
                                     'prefix' => '',
                                     'min' => 0,
@@ -190,10 +219,21 @@ if($this->context->action->id == 'update' )
                                     'allowMinus' => false
                                 ],
 
-                            ]); ?>                    
+                            ]); */?>                    
+                </div> 
+                <div class="col-md-6">                    
+                    <?/* $form->field($model, 'LIMIT_PER_CUSTOMER')->widget(NumberControl::class, [
+                                'maskedInputOptions' => [
+                                    'prefix' => '',
+                                    'min' => 0,
+                                    'max' => 999999,
+                                    'allowMinus' => false
+                                ],
+
+                            ]);*/ ?>                    
                 </div>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'LIMIT_PER_DAY')->widget(NumberControl::class, [
+                    <?php /* $form->field($model, 'LIMIT_PER_DAY')->widget(NumberControl::class, [
                                 'maskedInputOptions' => [
                                     'prefix' => '',
                                     'min' => 0,
@@ -201,12 +241,12 @@ if($this->context->action->id == 'update' )
                                     'allowMinus' => false
                                 ],
 
-                            ]); ?>                      
+                            ]); */ ?>                      
                 </div>
                 
                 <div class="col-md-6">
                     
-                    <?= $form->field($model, 'LIMIT_PER_DAY_CUSTOMER')->widget(NumberControl::class, [
+                    <?php /* $form->field($model, 'LIMIT_PER_DAY_CUSTOMER')->widget(NumberControl::class, [
                                 'maskedInputOptions' => [
                                     'prefix' => '',
                                     'min' => 0,
@@ -214,14 +254,17 @@ if($this->context->action->id == 'update' )
                                     'allowMinus' => false
                                 ],
 
-                            ]); ?>                    
-                </div>                
+                            ]); */ ?>                    
+                </div>  
+                        -->              
             </div>
           
             <div class="row">
+                <!--
                 <div class="col-md-6">
                     <?= $form->field($model, 'REDIMM')->textInput(['readonly' => true]) ?>
                 </div>
+                        -->
                 <div class="col-md-6">
                     
                 </div>
@@ -265,6 +308,7 @@ if($this->context->action->id == 'update' )
                         ?>
                     <?php endif; ?>
                 </div>
+                <!--
                 <div class="col-md-12">
                     <?= $form->field($model, 'SERIE')->textInput(['maxlength' => true]) ?>
                 </div>
@@ -290,6 +334,7 @@ if($this->context->action->id == 'update' )
 
                             ]); ?>              
                 </div>                
+                        -->
             </div>
         </div>
 

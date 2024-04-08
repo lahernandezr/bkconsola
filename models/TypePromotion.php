@@ -29,6 +29,7 @@ class TypePromotion extends \yii\db\ActiveRecord
             [['ID', 'NAME'], 'required'],
             [['ID'], 'string', 'max' => 2],
             [['NAME'], 'string', 'max' => 100],
+            [['ACTIVE'], 'boolean'],
             [['ID'], 'unique'],
         ];
     }
@@ -41,6 +42,7 @@ class TypePromotion extends \yii\db\ActiveRecord
         return [
             'ID' => 'ID',
             'NAME' => 'Name',
+            'ACTIVE' => 'Activo',
         ];
     }
 }

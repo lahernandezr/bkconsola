@@ -6,19 +6,19 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Promotion */
 
-$this->title = $model->NAME . ' - id: ' . $model->ID;
-$this->params['breadcrumbs'][] = ['label' => 'Promotions', 'url' => ['index']];
+$this->title = $model->NAME . ' ' . $model->CODE;
+$this->params['breadcrumbs'][] = ['label' => 'Promociones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="promotion-view">
 
     <p>
-        <?= Html::a('Update', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'ID' => $model->ID], [
+        <?= Html::a('Actualizar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Dar de Baja', ['delete', 'ID' => $model->ID], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '¿Estas seguro de dar de baja el registro?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -35,6 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'NAME',
             'DESCRIPTION',
             'ID_TYPE_PROMOTION',
+            [
+                'attribute' => 'ID_TYPE_PROMOTION',
+                'value' => $model->typePromotion->NAME  
+            ],             
             'VALUE',
             'TYPE_DISC',
             'ID_ITEM',

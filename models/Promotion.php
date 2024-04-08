@@ -41,14 +41,14 @@ class Promotion extends \yii\db\ActiveRecord
     {
         return [
             [['CODE', 'NAME', 'DESCRIPTION', 'ID_TYPE_PROMOTION'], 'required'],
-            [['VALUE','S_INIT','S_END'], 'number'],
+            [['VALUE','S_INIT','S_END','REGULAR_PRICE','PROMO_PRICE'], 'number'],
             [['TYPE_DISC', 'IMAGE', 'LINK'], 'string'],
             [['ID_ITEM', 'LIMIT_EXCHANGE', 'REDIMM','LIMIT_PER_DAY','LIMIT_PER_CUSTOMER','LIMIT_PER_DAY_CUSTOMER'], 'integer'],
             [['INIT', 'END'], 'safe'],
             [['ACTIVE'], 'boolean'],
             [['CODE','SERIE'], 'string', 'max' => 50],
             [['NAME'], 'string', 'max' => 100],
-            [['DESCRIPTION'], 'string', 'max' => 255],
+            [['DESCRIPTION'], 'string', 'max' => 2000],
             [['ID_TYPE_PROMOTION'], 'string', 'max' => 2],
             [['CODE', 'ID_ITEM'], 'unique', 'targetAttribute' => ['CODE', 'ID_ITEM']],
             [['file'], 'file', 'extensions' => 'jpg, png, jpeg', 'maxFiles' => '1'],
@@ -70,15 +70,17 @@ class Promotion extends \yii\db\ActiveRecord
             'VALUE' => 'Valor',
             'TYPE_DISC' => 'Tipo Descuento',
             'ID_ITEM' => 'Item',
-            'INIT' => 'Inicio',
-            'END' => 'Termino',
+            'INIT' => 'Valido desde',
+            'END' => 'Valido hasta',
             'IMAGE' => 'Imagen',
             'LINK' => 'Enlace',
-            'LIMIT_EXCHANGE' => 'Limite Canje Promoción',
+            'REGULAR_PRICE' => 'Precio Regular',
+            'PROMO_PRICE' => 'Precio Promoción',
+            'LIMIT_EXCHANGE' => 'Total de Cupones',
             'LIMIT_PER_DAY' => 'Limite Canje Promoción x Dia',
             'LIMIT_PER_CUSTOMER' => 'Limite Canje Cliente',
             'LIMIT_PER_DAY_CUSTOMER' => 'Limite Canje x Dia Cliente',
-            'REDIMM' => 'Redención',
+            'REDIMM' => 'Total en Existencias',
             'ID_ENTERPRISE' => 'Empresa',
             'SERIE' => 'Serie',
             'S_INIT' => 'Valor Inicial',
@@ -86,4 +88,10 @@ class Promotion extends \yii\db\ActiveRecord
             'ACTIVE' => 'Activo',
         ];
     }
+
+    public function getTypePromotion()
+    {
+        return $this->hasOne(TypePromotion::class, ['ID' => 'ID_TYPE_PROMOTION']); 
+    }
+
 }
