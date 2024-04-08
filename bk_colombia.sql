@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 06, 2023 at 08:31 AM
+-- Generation Time: Apr 07, 2024 at 10:46 PM
 -- Server version: 5.7.36
 -- PHP Version: 8.1.0
 
@@ -93,16 +93,16 @@ INSERT INTO `app_country` (`ID`, `NAME`, `ISO3`, `ACTIVE`) VALUES
 CREATE TABLE `app_customer` (
   `ID` int(11) NOT NULL,
   `USERNAME` varchar(255) NOT NULL,
-  `PASSWORD` varchar(500) NOT NULL,
+  `PASSWORD` varchar(500) DEFAULT NULL,
   `EMAIL` varchar(255) NOT NULL,
   `FULLNAME` varchar(255) NOT NULL,
   `PHONE` varchar(20) NOT NULL,
-  `WHATSAPP` varchar(20) NOT NULL,
+  `WHATSAPP` varchar(20) DEFAULT NULL,
   `ID_COUNTRY` varchar(3) NOT NULL,
   `BIRTHDATE` varchar(10) NOT NULL,
   `ID_GENDER` varchar(2) NOT NULL,
   `TYPE_REGISTRATION` enum('EMAIL','FACEBOOK','INSTAGRAM','GOOGLE') NOT NULL,
-  `ID_REGISTRATION` varchar(255) NOT NULL,
+  `ID_REGISTRATION` varchar(255) DEFAULT NULL,
   `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `IS_OTP` bit(1) NOT NULL,
   `ACTIVE` bit(1) NOT NULL
@@ -113,7 +113,9 @@ CREATE TABLE `app_customer` (
 --
 
 INSERT INTO `app_customer` (`ID`, `USERNAME`, `PASSWORD`, `EMAIL`, `FULLNAME`, `PHONE`, `WHATSAPP`, `ID_COUNTRY`, `BIRTHDATE`, `ID_GENDER`, `TYPE_REGISTRATION`, `ID_REGISTRATION`, `CREATED_AT`, `IS_OTP`, `ACTIVE`) VALUES
-(1, 'azuloro85', '', 'azuloro85@gmail.com', 'Luis Hernandez', '78325858', '78325858', 'COL', '08/05/1985', '1', 'EMAIL', '', '2023-07-19 17:26:09', b'0', b'1');
+(1, 'azuloro85', '', 'azuloro85@gmail.com', 'Luis Hernandez', '78325858', '78325858', 'COL', '08/05/1985', '1', 'EMAIL', '', '2023-07-19 17:26:09', b'0', b'1'),
+(2, 'nfunes', NULL, 'nfunes@outlook.com', 'Nestor Funes', '77598777', '', 'COL', '2005-04-02', '1', 'EMAIL', NULL, '2024-04-03 22:20:33', b'0', b'1'),
+(3, 'demo12', NULL, 'demo@itcomca.com', 'Cuenta Demo', '99987777', '', 'COL', '2005-04-01', '1', 'EMAIL', NULL, '2024-04-03 22:25:36', b'0', b'1');
 
 -- --------------------------------------------------------
 
@@ -147,8 +149,16 @@ CREATE TABLE `app_enterprise` (
   `CONTACT` varchar(100) NOT NULL,
   `PHONE` varchar(30) NOT NULL,
   `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ACTIVE` int(1) NOT NULL
+  `ACTIVE` bit(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `app_enterprise`
+--
+
+INSERT INTO `app_enterprise` (`ID`, `CODE`, `NAME`, `ADDRESS`, `NIT`, `RUT`, `EMAIL`, `CONTACT`, `PHONE`, `CREATED_AT`, `ACTIVE`) VALUES
+(2, '6516516', 'ITCOMCA', 'El Salvador', '987654321', '95184751', 'demo@itcom.com', 'Nestor Funes', '77598777', '2024-04-04 23:35:00', b'1'),
+(3, '51651651sA', 'ITCOMCA', 'El Salvador', '46516514654', '654651616516', 'demo@itcom.com', 'Nestor Funes', '77598777', '2024-04-04 23:54:35', b'1');
 
 -- --------------------------------------------------------
 
@@ -290,7 +300,7 @@ CREATE TABLE `app_promotion` (
   `ID` int(11) NOT NULL,
   `CODE` varchar(50) NOT NULL,
   `NAME` varchar(100) NOT NULL,
-  `DESCRIPTION` varchar(255) NOT NULL,
+  `DESCRIPTION` varchar(2000) NOT NULL,
   `ID_TYPE_PROMOTION` varchar(2) NOT NULL,
   `VALUE` decimal(10,4) DEFAULT NULL,
   `TYPE_DISC` enum('PERCENT','AMOUNT') DEFAULT NULL,
@@ -299,13 +309,28 @@ CREATE TABLE `app_promotion` (
   `END` datetime DEFAULT NULL,
   `IMAGE` text,
   `LINK` text NOT NULL,
-  `LIMIT_EXCHANGE` int(6) DEFAULT '0',
-  `LIMIT_PER_DAY` int(6) NOT NULL DEFAULT '0',
-  `REDIMM` int(6) DEFAULT NULL,
-  `LIMIT_PER_CUSTOMER` int(6) NOT NULL DEFAULT '0',
-  `LIMIT_PER_DAY_CUSTOMER` int(6) NOT NULL DEFAULT '0',
+  `REGULAR_PRICE` decimal(10,4) NOT NULL,
+  `PROMO_PRICE` decimal(10,4) NOT NULL,
+  `LIMIT_EXCHANGE` int(11) DEFAULT '0',
+  `LIMIT_PER_DAY` int(11) NOT NULL DEFAULT '0',
+  `REDIMM` int(11) DEFAULT NULL,
+  `LIMIT_PER_CUSTOMER` int(11) NOT NULL DEFAULT '0',
+  `LIMIT_PER_DAY_CUSTOMER` int(11) NOT NULL DEFAULT '0',
+  `ID_ENTERPRISE` int(11) NOT NULL DEFAULT '0',
+  `SERIE` varchar(50) DEFAULT NULL,
+  `S_INIT` int(11) DEFAULT NULL,
+  `S_END` int(11) DEFAULT NULL,
   `ACTIVE` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `app_promotion`
+--
+
+INSERT INTO `app_promotion` (`ID`, `CODE`, `NAME`, `DESCRIPTION`, `ID_TYPE_PROMOTION`, `VALUE`, `TYPE_DISC`, `ID_ITEM`, `INIT`, `END`, `IMAGE`, `LINK`, `REGULAR_PRICE`, `PROMO_PRICE`, `LIMIT_EXCHANGE`, `LIMIT_PER_DAY`, `REDIMM`, `LIMIT_PER_CUSTOMER`, `LIMIT_PER_DAY_CUSTOMER`, `ID_ENTERPRISE`, `SERIE`, `S_INIT`, `S_END`, `ACTIVE`) VALUES
+(1, 'PBCL6L6O3JJDDG20232208341956', 'WHOPPER DOBLE', 'WHOPPER DOBLE 2023', 'PI', NULL, NULL, NULL, '2023-08-19 00:00:00', '2023-09-09 00:00:00', NULL, '', '0.0000', '0.0000', 0, 0, NULL, 0, 0, 0, '', NULL, NULL, b'1'),
+(2, 'PBCLMWWOMABT1J20242104120739', 'CUPON PROMO 2 BK JR QUESO', 'No acumulable con otras promociones o descuentos, incluye 2 hamburguesas con 1 carne de 48gr c/u. 2 gaseosa pequeña de 12 oz c/u y 2 papas pequeñas. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacio', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-12 00:00:00', '8w1NPJ3NL80cEGiBmBW7TvIFZNCod7yv.jpeg', 'https://www.bk.com.co/cupones/?coupon=promo-2-bk-jr-queso&id=2791', '0.0000', '0.0000', 0, 0, NULL, 0, 0, 0, '', NULL, NULL, b'1'),
+(3, 'PBCLISUI3AEYXD20242204360755', 'BK DOBLE', 'No acumulable con otras promociones o descuentos, el combo incluye hamburguesa BK Doble de carne de 48 gr, 1 gaseosa pequeña de 12 oz y 1 papas pequeñas. Válido hasta el 30 de abril del 2024 o hasta agotar existencias, 10.000 unidades disponibles a nivel nacional. Aplica para domicilios por un pedido mínimo de $10.000 pesos + el recargo de domicilios. Es indispensable presentar el cupón para redimir la promoción. El precio antes de la oferta es calculado con los precios de cada uno de los productos sueltos, no se tienen en cuenta combos ni ofertas. La imagen del cupón es de referencia y puede ser diferente al producto final entregado. TM & © Burger King Corporation. Se utiliza bajo licencia. Todos los derechos reservados.', 'PC', NULL, NULL, NULL, '2024-04-08 00:00:00', '2024-04-30 00:00:00', 'FFzEEmePbqGS9FBvX_-Ka5tMDcbfoPIG.jpeg', 'https://www.bk.com.co/cupones/?coupon=bk-doble&id=3312', '23700.0000', '16900.0000', 10000, 0, NULL, 0, 0, 0, NULL, NULL, NULL, b'1');
 
 -- --------------------------------------------------------
 
@@ -502,18 +527,19 @@ INSERT INTO `app_type_payment` (`ID`, `NAME`, `ACTIVE`) VALUES
 
 CREATE TABLE `app_type_promotion` (
   `ID` varchar(2) NOT NULL,
-  `NAME` varchar(100) NOT NULL
+  `NAME` varchar(100) NOT NULL,
+  `ACTIVE` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_type_promotion`
 --
 
-INSERT INTO `app_type_promotion` (`ID`, `NAME`) VALUES
-('PC', 'PROMOCIÓN CANJE'),
-('PI', 'PROMOCIÓN IMAGEN '),
-('PS', 'PROMOCIÓN DESCUENTO VENTA'),
-('PT', 'PROMOCIÓN DESCUENTO ITEM\r\n');
+INSERT INTO `app_type_promotion` (`ID`, `NAME`, `ACTIVE`) VALUES
+('PC', 'CUPÓN', b'1'),
+('PI', 'PROMOCIÓN IMAGEN ', b'0'),
+('PS', 'PROMOCIÓN DESCUENTO VENTA', b'0'),
+('PT', 'PROMOCIÓN DESCUENTO ITEM\r\n', b'0');
 
 -- --------------------------------------------------------
 
@@ -530,7 +556,7 @@ CREATE TABLE `app_user` (
   `password_reset_token` varchar(255) DEFAULT NULL,
   `EMAIL` varchar(255) NOT NULL,
   `PHONE` varchar(20) NOT NULL,
-  `ID_ROL` int(2) NOT NULL,
+  `ID_ROL` int(11) NOT NULL,
   `BITHDATE` varchar(10) DEFAULT NULL,
   `IDENTIFICATION` varchar(50) DEFAULT NULL,
   `IS_OTP` bit(1) NOT NULL,
@@ -766,7 +792,7 @@ ALTER TABLE `app_category`
 -- AUTO_INCREMENT for table `app_customer`
 --
 ALTER TABLE `app_customer`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `app_customer_address`
@@ -778,7 +804,7 @@ ALTER TABLE `app_customer_address`
 -- AUTO_INCREMENT for table `app_enterprise`
 --
 ALTER TABLE `app_enterprise`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `app_fiscal`
@@ -808,7 +834,7 @@ ALTER TABLE `app_log`
 -- AUTO_INCREMENT for table `app_promotion`
 --
 ALTER TABLE `app_promotion`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `app_promotion_serial`
