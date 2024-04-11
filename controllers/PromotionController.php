@@ -44,7 +44,27 @@ class PromotionController extends Controller
         $searchModel = new PromotionSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+
+
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+        /**
+     * Lists all Promotion models.
+     *
+     * @return string
+     */
+    public function actionHistory()
+    {
+        $searchModel = new PromotionSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+
+
+        return $this->render('history', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

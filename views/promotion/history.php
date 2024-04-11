@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Crear Cupón', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Ver Historico de Cupones', ['history'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Regresar a Cupones activos', ['index'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
