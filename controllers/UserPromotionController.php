@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\PromoRedeem;
 use app\models\UserPromotion;
 use app\models\UserPromotionSearch;
 use yii\web\Controller;
@@ -80,6 +81,49 @@ class UserPromotionController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function actionRedeem()
+    {
+        $model = new PromoRedeem();
+
+        return $this->render('redeem', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRedeemComplete()
+    {
+        $model = new PromoRedeem();
+
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+            // PBCLMWWOMABT1J20242104120739 ID 1
+
+            // {"cupon" : 2, "id": 1}
+                
+            $result = json_decode($model->qrcode, false);
+
+            $promo = new UserPromotion();
+
+            $promo->ID_CUSTOMER = $result->id;
+            $promo->ID_USER = 2;
+            $promo->ID_PROMOCION = $result->cupon;
+            $promo->ID_SALE = 0;
+
+            if($promo->save()) {
+                return $this->redirect(['index']);
+            }
+            
+
+            var_dump($promo);
+
+            
+        }
+
+        // return $this->render('redeem', [
+        //     'model' => $model,
+        // ]);
     }
 
     /**

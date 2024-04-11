@@ -12,16 +12,16 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ID_USER')->textInput() ?>
+    <?= $form->field($model, 'ID_USER')->hiddenInput(['value' => $model->ID_USER])->label(false); ?>
 
-    <?= $form->field($model, 'ID_SALE')->textInput() ?>
+    <?php $form->field($model, 'ID_SALE')->hiddenInput(['value' => $model->ID_SALE])->label(false); ?>
 
     <?= $form->field($model, 'ID_PROMOCION')->textInput() ?>
 
-    <?= $form->field($model, 'CREATED_AT')->textInput() ?>
+    <?= $form->field($model, 'CREATED_AT')->hiddenInput(['value' => $model->CREATED_AT])->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Canjear', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

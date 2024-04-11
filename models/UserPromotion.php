@@ -29,7 +29,7 @@ class UserPromotion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID_USER', 'ID_SALE', 'ID_PROMOCION', 'CREATED_AT'], 'required'],
+            [['ID_USER', 'ID_SALE', 'ID_PROMOCION', 'ID_CUSTOMER'], 'required'],
             [['ID_USER', 'ID_SALE', 'ID_PROMOCION'], 'integer'],
             [['CREATED_AT'], 'safe'],
         ];
@@ -42,10 +42,12 @@ class UserPromotion extends \yii\db\ActiveRecord
     {
         return [
             'ID' => 'ID',
-            'ID_USER' => 'Id User',
-            'ID_SALE' => 'Id Sale',
-            'ID_PROMOCION' => 'Id Promocion',
-            'CREATED_AT' => 'Created At',
+            'ID_USER' => 'Usuario',
+            'ID_SALE' => 'Numero de Venta',
+            'ID_PROMOCION' => 'Cupon',
+            'ID_CUSTOMER' => 'Cliente',
+            'CREATED_AT' => 'Fecha de Redencion',
+
         ];
     }
 }

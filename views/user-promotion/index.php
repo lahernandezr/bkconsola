@@ -10,15 +10,14 @@ use app\models\UserPromotion;
 /* @var $searchModel app\models\UserPromotionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'User Promotions';
+$this->title = 'Redencion de Cupones';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-promotion-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create User Promotion', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Redimir', ['redeem'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,9 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'ID',
-            'ID_USER',
-            'ID_SALE',
+            'ID_CUSTOMER',
+            // 'ID_SALE',
             'ID_PROMOCION',
+            'ID_USER',
             'CREATED_AT',
             [
                 'class' => ActionColumn::className(),

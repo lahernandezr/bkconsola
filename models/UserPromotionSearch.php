@@ -17,7 +17,7 @@ class UserPromotionSearch extends UserPromotion
     public function rules()
     {
         return [
-            [['ID', 'ID_USER', 'ID_SALE', 'ID_PROMOCION'], 'integer'],
+            [['ID', 'ID_USER', 'ID_SALE', 'ID_PROMOCION', 'ID_CUSTOMER'], 'integer'],
             [['CREATED_AT'], 'safe'],
         ];
     }
@@ -59,9 +59,10 @@ class UserPromotionSearch extends UserPromotion
         // grid filtering conditions
         $query->andFilterWhere([
             'ID' => $this->ID,
-            'ID_USER' => $this->ID_USER,
+            'ID_CUSTOMER' => $this->ID_CUSTOMER,
             'ID_SALE' => $this->ID_SALE,
             'ID_PROMOCION' => $this->ID_PROMOCION,
+            'ID_USER' => $this->ID_USER,
             'CREATED_AT' => $this->CREATED_AT,
         ]);
 
