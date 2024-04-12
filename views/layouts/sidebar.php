@@ -62,10 +62,10 @@ use yii\bootstrap4\Html;
                     'label' => 'Cupones',
                     'icon' => 'fas fa-ticket-alt',                 
                     'items' => [
-                            ['label' => 'Activos', 'icon' => 'far fa-calendar-check', 'url' => ['promotion/index']],
-                            ['label' => 'Historico', 'icon' => 'far fa-calendar-alt', 'url' => ['promotion/history']],
-                            ['label' => 'Redencion', 'icon' => 'fas fa-receipt', 'url' => ['user-promotion/index']],
-                        ]
+                            ['label' => 'Activos', 'icon' => 'far fa-calendar-check', 'url' => ['promotion/index'], 'options'=>['class'=>'subitem']],
+                            ['label' => 'Inactivos', 'icon' => 'far fa-calendar-times', 'url' => ['promotion/history'], 'options'=>['class'=>'subitem']],
+                            ['label' => 'Redención', 'icon' => 'fas fa-receipt', 'url' => ['user-promotion/index'], 'options'=>['class'=>'subitem']],
+                    ],
                     ],
                    [
                     'label' => 'Informes',
@@ -73,9 +73,9 @@ use yii\bootstrap4\Html;
                     'items' => [
                         //['label' => 'Products Sale', 'icon' => 'file-alt', 'url' => ['#']],
                         //['label' => 'Sale', 'icon' => 'file-alt', 'url' => ['#']],
-                        ['label' => 'Canjes por Cliente', 'icon' => 'file-alt', 'url' => ['#']],
-                        ['label' => 'Canjes por Empresa', 'icon' => 'file-alt', 'url' => ['#']],
-                        ['label' => 'Canjes por Promocion', 'icon' => 'file-alt', 'url' => ['#']],
+                        ['label' => 'Canjes por Cliente', 'icon' => 'file-alt', 'url' => ['#'], 'options'=>['class'=>'subitem']],
+                        ['label' => 'Canjes por Empresa', 'icon' => 'file-alt', 'url' => ['#'], 'options'=>['class'=>'subitem']],
+                        ['label' => 'Canjes por Promocion', 'icon' => 'file-alt', 'url' => ['#'], 'options'=>['class'=>'subitem']],
                         ]
                     ],
                     [
@@ -84,9 +84,9 @@ use yii\bootstrap4\Html;
                         'items' => [
                             //['label' => 'Type Payment', 'icon' => 'fas fa-cog', 'url' => ['type-payment/index']],
                             //['label' => 'Fiscal', 'icon' => 'fas fa-cog', 'url' => ['fiscal/index']],
-                            ['label' => 'Usuarios', 'icon' => 'fas fa-users', 'url' => ['user/index']],
-                            ['label' => 'Sucursales', 'icon' => 'fa-solid fa-store', 'url' => ['store/index']],                            
-                            ['label' => 'Global', 'icon' => 'fas fa-sliders-h', 'url' => ['global-config/index']],
+                            ['label' => 'Usuarios', 'icon' => 'fas fa-users', 'url' => ['user/index'], 'options'=>['class'=>'subitem']],
+                            ['label' => 'Sucursales', 'icon' => 'fa-solid fa-store', 'url' => ['store/index'], 'options'=>['class'=>'subitem']],                            
+                            ['label' => 'Global', 'icon' => 'fas fa-sliders-h', 'url' => ['global-config/index'], 'options'=>['class'=>'subitem']],
                             
                         ]
                     ],

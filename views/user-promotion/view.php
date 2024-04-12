@@ -31,18 +31,37 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'ID',
             // 'ID_USER',
-            [
-                'attribute' => 'ID_USER',
-                'value' => $model->user->FULLNAME  
-            ],
-            'ID_SALE',
+            
+            // 'ID_SALE',
             // 'ID_PROMOCION',
+            [
+                'attribute' => 'customer',
+                'value' => $model->customer->FULLNAME  
+            ],
             [
                 'attribute' => 'ID_PROMOCION',
                 'value' => $model->promotion->CODE  
             ],
-            'CREATED_AT',
+            [
+                'attribute' => 'promotion',
+                'format' => 'raw',
+                'label' => 'Imagen de Cupón',
+                'value' => Html::img('@web/uploads/promos/' . $model->promotion->IMAGE, ['alt'=>'some', 'class'=>'thing', 'style'=>'width:300px'])
+            ],
+            [
+                'attribute' => 'promotion',
+                'format' => 'raw',
+                'label' => 'Descripción de Cupón',
+                'value' => $model->promotion->DESCRIPTION
+            ],
+            [
+                'attribute' => 'ID_USER',
+                'label' => 'Redimido por',
+                'value' => $model->user->USERNAME  
+            ],
+            'CREATED_AT:datetime',
         ],
+        'template' => "<tr><th style='width: 30%;'>{label}</th><td>{value}</td></tr>"
     ]) ?>
 
 </div>

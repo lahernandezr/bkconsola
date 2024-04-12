@@ -76,10 +76,20 @@ aside {
 }
 
 a.nav-link {
-    color: #F5EBDC !important;
+    color: #f5ebdcb0 !important;
 }
 
 a.nav-link.active {
+    background-color: #FF8732 !important;
+    color: #502314 !important;
+}
+
+li.has-treeview > a.nav-link.active {
+    background-color: #d62300 !important;
+    color: #F5EBDC !important;
+}
+
+li.subitem.active > a.nav-link.active {
     background-color: #FF8732 !important;
     color: #502314 !important;
 }

@@ -6,6 +6,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use app\models\Promotion;
 use kartik\daterange\DateRangePicker;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PromotionSearch */
@@ -69,7 +70,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'IMAGE:ntext',
             //'LINK:ntext',
             'LIMIT_EXCHANGE:decimal',
-            'REDIMM',
+            // 'REDIMM',
+            [
+                'attribute' => 'REDIMM',
+                'value' => 'calculateStock',
+                'format' => 'decimal',
+            ],
             //'ACTIVE:boolean',
             [
                 'class' => ActionColumn::className(),
