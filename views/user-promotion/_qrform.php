@@ -29,7 +29,7 @@ use yii\bootstrap4\ActiveForm;
     </div>
     <div class="row">        
         <div class="col-md-6">
-            <?= $form->field($model, 'qrcode') ?>
+            <?= $form->field($model, 'qrcode')->passwordInput(['maxlength' => true]); ?>
         </div>
     </div>
     <div class="row pt-2">
