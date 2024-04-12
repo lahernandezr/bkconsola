@@ -39,7 +39,11 @@ class EnterpriseController extends Controller
     public function actionIndex()
     {
         $searchModel = new EnterpriseSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $params = $this->request->queryParams;
+        if (!isset($params['EnterpriseSearch'])) {
+            $params['EnterpriseSearch']['ACTIVE'] = 1;
+        }
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
