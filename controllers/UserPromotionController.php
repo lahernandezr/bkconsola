@@ -2,14 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\PromoRedeem;
-use app\models\UserPromotion;
-use app\models\Promotion;
-use app\models\UserPromotionSearch;
-use app\utils\DateUtils;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\utils\DateUtils;
+use app\models\Promotion;
+use app\models\PromoRedeem;
 use yii\filters\VerbFilter;
+use app\models\UserPromotion;
+use app\business\CuponBusiness;
+use app\business\CuponValidator;
+use yii\web\NotFoundHttpException;
+use app\models\UserPromotionSearch;
 
 /**
  * UserPromotionController implements the CRUD actions for UserPromotion model.
@@ -63,6 +65,14 @@ class UserPromotionController extends Controller
         ]);
     }
 
+    public function actionTicket($ID)
+    {
+        return $this->render('ticket', [
+            'model' => $this->findModel($ID),
+        ]);
+    }
+
+
     /**
      * Creates a new UserPromotion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -100,28 +110,24 @@ class UserPromotionController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post())) {
 
+            $cuponValidator = new CuponBusiness();
             // PBCLMWWOMABT1J20242104120739 ID 1
 
             // {"cupon" : 2, "id": 1}
             // eyJjdXBvbiIgOiAyLCAiaWQiOiAxfQ==
-            $b64 = base64_decode($$model->qrcode);
-            $result = json_decode($b64, false);
+            $resultRequest = $cuponValidator->convertDataQrToRequest($model->qrcode);
+            $redemtion = $cuponValidator->redeem($resultRequest->cupon,$resultRequest->id,2);
+            if($redemtion !=null){
 
-            $promo = new UserPromotion();
-
-            $promo->ID_CUSTOMER = $result->id;
-            $promo->ID_USER = 2;
-            $promo->ID_PROMOCION = $result->cupon;
-            $promo->ID_SALE = 0;
-
-            if($promo->save()) {
-                return $this->redirect(['index']);
+                return $this->render('view', [
+                    'model' => $this->findModel($redemtion->ID),
+                ]);
             }
-            
 
-            var_dump($promo);
-
-            
+            return $this->render('redeem', [
+                'model' => $model,
+            ]);
+       
         }
 
         // return $this->render('redeem', [
@@ -131,41 +137,8 @@ class UserPromotionController extends Controller
 
     public function actionRedeemValidator($ID)
     {
-        $b64 = base64_decode($ID);
-        $result = json_decode($b64, false);
-
-        $jsonResponse = array("result" => "ERROR", "message"=>"Error","vardump"=>"");
-
-        $modelPromo = Promotion::find()->where(['ID' => $result->cupon])->one();
-        if($modelPromo == null){
-            $jsonResponse["message"]="Cúpon no es valido";
-            return json_encode($jsonResponse);
-        }
-        if(!$modelPromo->ACTIVE){
-            $jsonResponse["message"]="Cúpon no esta activo";
-            return json_encode($jsonResponse);
-        }
-
-        $dateUtils = new DateUtils();
-
-        if($modelPromo->INIT == null || $modelPromo->END == null){
-            $jsonResponse["message"]="Cúpon no cuenta con fechas asignadas";
-            return json_encode($jsonResponse);
-        }
-
-        if($dateUtils->check_in_range($modelPromo->INIT,$modelPromo->END,date('Y-m-d h:i:s'))){
-            $jsonResponse["message"]="Cúpon esta fuera del rango de fechas de redención";
-            return json_encode($jsonResponse);
-        }
-
-        if($modelPromo->REDIMM != null && $modelPromo->REDIMM > $modelPromo->LIMIT_EXCHANGE){
-            $jsonResponse["message"]="Cúpon se ha agotado";
-            return json_encode($jsonResponse);
-        }
-        $jsonResponse["result"]="OK";
-        $jsonResponse["message"]="Cupón es valido";
-        return json_encode($jsonResponse);
-
+        $cuponValidator = new CuponBusiness();
+        return $cuponValidator->isValidByRequest($ID,true);
     }
 
 

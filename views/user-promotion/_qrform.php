@@ -33,7 +33,7 @@ use yii\bootstrap4\ActiveForm;
         </div>
     </div>
     <div class="row pt-2">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-group">
                 <?= Html::button('Validar Codigo', ['class' => 'btn btn-primary', 'onclick' => '
                                     if($("#promoredeem-qrcode").val()=="")
@@ -44,14 +44,15 @@ use yii\bootstrap4\ActiveForm;
                                         result = JSON.parse(data);
                                         $(document).Toasts("create", {
                                             class: result.result=="ERROR" ?"bg-red":"bg-green",
-                                            title: "Resultado Validacion",
+                                            title: "Resultado",
                                             subtitle: "Console",
                                             body: result.message,
                                             autohide:true,
-                                            delay:2000
+                                            delay:3000
                                           })
                                 });']) ?>        
-                <?= Html::submitButton('Redimir', ['class' => 'btn btn-success', 'disabled'=> true]) ?>
+                <?= Html::submitButton('Redimir Código', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('Reportar Problema', ['class' => 'btn btn-danger']) ?>
             </div>
         </div>
     </div>
