@@ -148,12 +148,12 @@ class UserPromotionController extends Controller
 
         $dateUtils = new DateUtils();
 
-        if($modelPromo->S_INIT == null || $modelPromo->S_END == null){
+        if($modelPromo->INIT == null || $modelPromo->END == null){
             $jsonResponse["message"]="Cúpon no cuenta con fechas asignadas";
             return json_encode($jsonResponse);
         }
 
-        if($dateUtils->check_in_range($modelPromo->S_INIT,$modelPromo->S_END,date('Y-m-d h:i:s'))){
+        if($dateUtils->check_in_range($modelPromo->INIT,$modelPromo->END,date('Y-m-d h:i:s'))){
             $jsonResponse["message"]="Cúpon esta fuera del rango de fechas de redención";
             return json_encode($jsonResponse);
         }
