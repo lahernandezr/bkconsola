@@ -17,18 +17,36 @@ use yii\bootstrap4\ActiveForm;
         'action' => ['user-promotion/redeem-complete'],
         ]); ?>
 
+
     <div class="row">
+        <div class="col-md-6">
+            <img src="<?= Yii::$app->getHomeUrl(); ?>/images/qr.png" height="128"/>
+            <img src="<?= Yii::$app->getHomeUrl(); ?>/images/scanner.png" height="128"/>
+        </div>
+        <div class="col-md-3">
+           
+        </div>    
+    </div>
+    <div class="row">        
         <div class="col-md-6">
             <?= $form->field($model, 'qrcode') ?>
         </div>
     </div>
-
-    <div class="form-group">
-        <?= Html::submitButton('Redimir', [
-            'class' => 'btn btn-primary'
-            ]) ?>
+    <div class="row pt-2">
+        <div class="col-md-6">
+            <div class="form-group">
+                <?= Html::button('Validar Codigo', ['class' => 'btn btn-primary', 'onclick' => '
+                                    if($("#promoredeem-qrcode").val()=="")
+                                        return;
+                                    alert($("#promoredeem-qrcode").val());
+                                    $.get("redeem-validator?ID="+$("#promoredeem-qrcode").val(), function(data) {        
+                                        console.log(data);
+                                        alert(data);
+                                });']) ?>        
+                <?= Html::submitButton('Redimir', ['class' => 'btn btn-success', 'disabled'=> true]) ?>
+            </div>
+        </div>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\PromoRedeem;
 use app\models\UserPromotion;
+use app\models\Promotion;
 use app\models\UserPromotionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -101,8 +102,9 @@ class UserPromotionController extends Controller
             // PBCLMWWOMABT1J20242104120739 ID 1
 
             // {"cupon" : 2, "id": 1}
-                
-            $result = json_decode($model->qrcode, false);
+            // eyJjdXBvbiIgOiAyLCAiaWQiOiAxfQ==
+            $b64 = base64_decode($$model->qrcode);
+            $result = json_decode($b64, false);
 
             $promo = new UserPromotion();
 
@@ -125,6 +127,34 @@ class UserPromotionController extends Controller
         //     'model' => $model,
         // ]);
     }
+
+    public function actionRedeemValidator($ID)
+    {
+        $b64 = base64_decode($ID);
+        $result = json_decode($b64, false);
+
+        $jsonResponse = array("result" => "ERROR", "message"=>"Error","vardump"=>"");
+
+        $modelPromo = Promotion::find()->where(['CODE' => $result->cupon]);
+        if($modelPromo == null){
+            $jsonResponse["message"]="Cúpon no es valido";
+            return json_encode($jsonResponse);
+        }
+
+        if(!$modelPromo->ACTIVE){
+            $jsonResponse["message"]="Cúpon no esta activo";
+            return json_encode($jsonResponse);
+        }
+
+        if($modelPromo->REDIMM != null && $modelPromo->REDIMM > $modelPromo->LIMIT_EXCHANGE){
+            $jsonResponse["message"]="Cúpon se ha agotado";
+            return json_encode($jsonResponse);
+        }
+
+        return json_encode($jsonResponse);
+
+    }
+
 
     /**
      * Updates an existing UserPromotion model.
@@ -175,4 +205,9 @@ class UserPromotionController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+  
 }
+
+
+
