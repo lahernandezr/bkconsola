@@ -5,7 +5,7 @@ use yii\bootstrap4\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Customer */
 
-$this->title = 'Crear Cliente';
+$this->title = 'Agregar Cliente';
 $this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 

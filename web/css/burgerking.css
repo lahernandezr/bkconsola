@@ -58,6 +58,14 @@ body {
     text-transform: uppercase;
 }
 
+.btn-info {
+    /* background-color: #fa0 !important; */
+    /* border-color: #fa0 !important; */
+    border-radius: 0.75rem !important;
+    /* color: #502314 !important; */
+    text-transform: uppercase;
+}
+
 .table {
     background-color: white !important;
 }

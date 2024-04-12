@@ -50,4 +50,19 @@ class UserPromotion extends \yii\db\ActiveRecord
 
         ];
     }
+
+    public function getCustomer()
+    {
+        return $this->hasOne(Customer::class, ['ID' => 'ID_CUSTOMER']); 
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['ID' => 'ID_USER']); 
+    }
+
+    public function getPromotion()
+    {
+        return $this->hasOne(Promotion::class, ['ID' => 'ID_PROMOCION']);
+    }
 }

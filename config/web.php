@@ -15,7 +15,11 @@ $config = [
     ],
     'components' => [
         'formatter' => [
-            'dateFormat' => 'dd MM yyyy',
+            'defaultTimeZone' => 'CST',
+            'timeZone' => 'America/El_Salvador',
+            'dateFormat' => 'php:d-M-Y',
+            'datetimeFormat'=>'php:d-M-Y H:i:s',
+            // 'dateFormat' => 'dd MM yyyy',
             'decimalSeparator' => '.',
             'thousandSeparator' => ',',
             'currencyCode' => 'USD',
