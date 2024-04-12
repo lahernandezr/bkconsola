@@ -2,10 +2,12 @@
 
 use app\assets\ChartJSAsset;
 use app\models\Customer;
+use app\models\Enterprise;
 use app\models\Promotion;
 use app\models\Sale;
 use practically\chartjs\Chart;
 use app\models\Item;
+use app\models\UserPromotion;
 
 Yii::$app->language='es';
 ChartJSAsset::register($this);
@@ -19,19 +21,25 @@ $salesCount = Sale::find()->where(['>', 'CREATED_AT', date('Y-m-d 00:00:00')])->
 $promos = Promotion::find()->where(['=', 'ACTIVE', true])->count();
 $user = Customer::find()->where(['=', 'ACTIVE', true])->count();
 
+
+$redeems = UserPromotion::find()->count();
+$activePromos = Promotion::find()->where(['=', 'ACTIVE', true])->count();
+$customers = Customer::find()->where(['=', 'ACTIVE', true])->count();
+$companies = Enterprise::find()->where(['=', 'ACTIVE', true])->count();
+
 ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
                 // 'title' => ($sales == null) ? $formatter->asCurrency("0.0") : $formatter->asCurrency($sales),
-                'title' => $promos,
+                'title' => $redeems,
                 'text' => 'Redención de cupones',
                 'icon' => 'fas fa-ticket-alt',
                 'theme' => 'gradient-success',
                 'loadingStyle' => false,
                 'linkText' => 'Detalles',
-                'linkUrl' => '../sale/index',
+                'linkUrl' => '../user-promotion/index',
             ]) ?>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -48,23 +56,23 @@ $user = Customer::find()->where(['=', 'ACTIVE', true])->count();
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
                 'title' => $user,
-                'text' => 'Total Clientes',
+                'text' => 'Total Clientes Activos',
                 'icon' => 'fas fa-users',
                 'theme' => 'gradient-info',
                 'loadingStyle' => false,
                 'linkText' => 'Detalles',
-                'linkUrl' => '../item/index',
+                'linkUrl' => '../customer/index',
             ]) ?>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => $user,
-                'text' => 'Total Empresas',
+                'title' => $companies,
+                'text' => 'Total Empresas Activas',
                 'icon' => 'fas fa-building',
                 'theme' => 'gradient-info',
                 'loadingStyle' => false,
                 'linkText' => 'Detalles',
-                'linkUrl' => '../user/index',
+                'linkUrl' => '../enterprise/index',
             ]) ?>
         </div>        
     </div>

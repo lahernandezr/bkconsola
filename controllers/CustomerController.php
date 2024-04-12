@@ -39,7 +39,11 @@ class CustomerController extends Controller
     public function actionIndex()
     {
         $searchModel = new CustomerSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $params = $this->request->queryParams;
+        if (!isset($params['CustomerSearch'])) {
+            $params['CustomerSearch']['ACTIVE'] = true;
+        }
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
