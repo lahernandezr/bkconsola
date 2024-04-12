@@ -5,6 +5,8 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use app\models\UserPromotion;
+use yii\helpers\ArrayHelper;
+use app\models\User;
 use Faker\Guesser\Name;
 
 /* @var $this yii\web\View */
@@ -43,9 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'ID_USER',
             [
-                'attribute' => 'user',
-                'value' => 'user.USERNAME' 
+                'attribute' => 'ID_USER',
+                'value' => 'user.USERNAME',
+                'filter' => Html::activeDropDownList($searchModel, 'ID_USER', ArrayHelper::map(User::find()->asArray()->all(), 'ID', 'USERNAME'),['class'=>'form-control','prompt' => 'Selecciones la línea']),
             ],
+
             'CREATED_AT:date',
             [
 

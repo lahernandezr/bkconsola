@@ -26,6 +26,7 @@ use Yii;
 class Promotion extends \yii\db\ActiveRecord
 {
     public $file;
+
     /**
      * {@inheritdoc}
      */
@@ -92,6 +93,13 @@ class Promotion extends \yii\db\ActiveRecord
     public function getTypePromotion()
     {
         return $this->hasOne(TypePromotion::class, ['ID' => 'ID_TYPE_PROMOTION']); 
+    }
+
+    public function getCalculateStock()
+    {
+        $totalRedeem = $this->REDIMM == null ? 0 : $this->REDIMM;
+        $result = $this->LIMIT_EXCHANGE - $totalRedeem;
+        return $result;
     }
 
 }
