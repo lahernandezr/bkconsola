@@ -6,6 +6,7 @@ use app\models\PromoRedeem;
 use app\models\UserPromotion;
 use app\models\Promotion;
 use app\models\UserPromotionSearch;
+use app\utils\DateUtils;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -135,14 +136,25 @@ class UserPromotionController extends Controller
 
         $jsonResponse = array("result" => "ERROR", "message"=>"Error","vardump"=>"");
 
-        $modelPromo = Promotion::find()->where(['CODE' => $result->cupon]);
+        $modelPromo = Promotion::find()->where(['ID' => $result->cupon])->one();
         if($modelPromo == null){
             $jsonResponse["message"]="Cúpon no es valido";
             return json_encode($jsonResponse);
         }
-
         if(!$modelPromo->ACTIVE){
             $jsonResponse["message"]="Cúpon no esta activo";
+            return json_encode($jsonResponse);
+        }
+
+        $dateUtils = new DateUtils();
+
+        if($modelPromo->S_INIT == null || $modelPromo->S_END == null){
+            $jsonResponse["message"]="Cúpon no cuenta con fechas asignadas";
+            return json_encode($jsonResponse);
+        }
+
+        if($dateUtils->check_in_range($modelPromo->S_INIT,$modelPromo->S_END,date('Y-m-d h:i:s'))){
+            $jsonResponse["message"]="Cúpon esta fuera del rango de fechas de redención";
             return json_encode($jsonResponse);
         }
 
@@ -150,10 +162,13 @@ class UserPromotionController extends Controller
             $jsonResponse["message"]="Cúpon se ha agotado";
             return json_encode($jsonResponse);
         }
-
+        $jsonResponse["result"]="OK";
+        $jsonResponse["message"]="Cupón es valido";
         return json_encode($jsonResponse);
 
     }
+
+
 
 
     /**

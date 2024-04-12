@@ -38,10 +38,18 @@ use yii\bootstrap4\ActiveForm;
                 <?= Html::button('Validar Codigo', ['class' => 'btn btn-primary', 'onclick' => '
                                     if($("#promoredeem-qrcode").val()=="")
                                         return;
-                                    alert($("#promoredeem-qrcode").val());
+                                    //alert($("#promoredeem-qrcode").val());
                                     $.get("redeem-validator?ID="+$("#promoredeem-qrcode").val(), function(data) {        
                                         console.log(data);
-                                        alert(data);
+                                        result = JSON.parse(data);
+                                        $(document).Toasts("create", {
+                                            class: result.result=="ERROR" ?"bg-red":"bg-green",
+                                            title: "Resultado Validacion",
+                                            subtitle: "Console",
+                                            body: result.message,
+                                            autohide:true,
+                                            delay:2000
+                                          })
                                 });']) ?>        
                 <?= Html::submitButton('Redimir', ['class' => 'btn btn-success', 'disabled'=> true]) ?>
             </div>
