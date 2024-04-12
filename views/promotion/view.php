@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Promotion */
 
-$this->title = $model->NAME . ' ' . $model->CODE;
+$this->title = $model->NAME;
 $this->params['breadcrumbs'][] = ['label' => 'Cupones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Actualizar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Dar de Baja', ['delete', 'ID' => $model->ID], [
+        <?= Html::a('DESACTIVAR', ['delete', 'ID' => $model->ID], [
             'class' => 'btn btn-primary',
             'data' => [
                 'confirm' => '¿Estas seguro de dar de baja el registro?',

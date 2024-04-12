@@ -21,7 +21,7 @@ use yii\bootstrap4\ActiveForm;
     <?= $form->field($model, 'CREATED_AT')->hiddenInput(['value' => $model->CREATED_AT])->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Canjear', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(($this->context->action->id == 'create') ? 'Canjear' : 'GUARDAR CAMBIOS', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

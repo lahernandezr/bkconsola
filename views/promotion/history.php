@@ -11,14 +11,14 @@ use kartik\daterange\DateRangePicker;
 /* @var $searchModel app\models\PromotionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Cupones';
+$this->title = 'Cupones Inactivos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="promotion-index">
 
     <p>
         <?= Html::a('Crear Cupón', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Regresar a Cupones activos', ['index'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Ver Cupones activos', ['index'], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

@@ -48,7 +48,7 @@ use yii\bootstrap4\ActiveForm;
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton(($this->context->action->id == 'create') ? 'CREAR' : 'GUARDAR', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(($this->context->action->id == 'create') ? 'AGREGAR' : 'GUARDAR', ['class' => 'btn btn-success']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

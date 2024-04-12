@@ -83,7 +83,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     
     public function getRol()
     {
-        return $this->hasOne(Rol::className(), ['ID' => 'ID_ROL']);
+        return $this->hasOne(Rol::class, ['ID' => 'ID_ROL']);
     }
 
         /**

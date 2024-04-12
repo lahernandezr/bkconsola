@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="customer-index">
 
     <p>
-        <?= Html::a('Crear Cliente', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar Cliente', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 

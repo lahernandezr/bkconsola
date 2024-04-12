@@ -11,6 +11,10 @@ use app\models\UserPromotion;
  */
 class UserPromotionSearch extends UserPromotion
 {
+    public $customer;
+    public $user;
+    public $promotion;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +22,7 @@ class UserPromotionSearch extends UserPromotion
     {
         return [
             [['ID', 'ID_USER', 'ID_SALE', 'ID_PROMOCION', 'ID_CUSTOMER'], 'integer'],
-            [['CREATED_AT'], 'safe'],
+            [['CREATED_AT','customer', 'user', 'promotion'], 'safe'],
         ];
     }
 
@@ -40,31 +44,53 @@ class UserPromotionSearch extends UserPromotion
      */
     public function search($params)
     {
-        $query = UserPromotion::find();
+        $query = UserPromotion::find()->alias('a1');
 
         // add conditions that should always apply here
+
+        $query->joinWith(['customer', 'user', 'promotion']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $dataProvider->sort->attributes['customer'] = [
+            'asc' => ['app_customer.EMAIL' => SORT_ASC],
+            'desc' => ['app_customer.EMAIL' => SORT_DESC],
+        ];
 
-        if (!$this->validate()) {
+        $dataProvider->sort->attributes['user'] = [
+            'asc' => ['app_user.USERNAME' => SORT_ASC],
+            'desc' => ['app_user.USERNAME' => SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['promotion'] = [
+            'asc' => ['app_promotion.CODE' => SORT_ASC],
+            'desc' => ['app_promotion.CODE' => SORT_DESC],
+        ];
+
+        // $this->load($params);
+
+        // if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
+        //     return $dataProvider;
+        // }
+
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ID' => $this->ID,
-            'ID_CUSTOMER' => $this->ID_CUSTOMER,
-            'ID_SALE' => $this->ID_SALE,
-            'ID_PROMOCION' => $this->ID_PROMOCION,
-            'ID_USER' => $this->ID_USER,
+            'a1.ID' => $this->ID,
+            // 'ID_CUSTOMER' => $this->ID_CUSTOMER,
+            // 'ID_SALE' => $this->ID_SALE,
+            // 'ID_PROMOCION' => $this->ID_PROMOCION,
+            // 'ID_USER' => $this->ID_USER,
             'CREATED_AT' => $this->CREATED_AT,
-        ]);
+        ])->andFilterWhere(['like', 'app_customer.EMAIL', $this->customer])
+        ->andFilterWhere(['like', 'app_user.USERNAME', $this->user])
+        ->andFilterWhere(['like', 'app_promotion.CODE', $this->promotion]);
 
         return $dataProvider;
     }

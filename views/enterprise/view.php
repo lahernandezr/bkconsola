@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
     <?= Html::a('Actualizar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Dar de Baja', ['delete', 'ID' => $model->ID], [
+        <?= Html::a('DESACTIVAR', ['delete', 'ID' => $model->ID], [
             'class' => 'btn btn-primary',
             'data' => [
-                'confirm' => '¿Estas seguro de dar de baja el registro?',
+                'confirm' => '¿Estas seguro de desactivar el registro?',
                 'method' => 'post',
             ],
         ]) ?>

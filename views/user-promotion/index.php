@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use app\models\UserPromotion;
+use Faker\Guesser\Name;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserPromotionSearch */
@@ -29,13 +30,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'ID',
-            'ID_CUSTOMER',
-            // 'ID_SALE',
-            'ID_PROMOCION',
-            'ID_USER',
-            'CREATED_AT',
+            // 'ID_CUSTOMER',
             [
-                'class' => ActionColumn::className(),
+                'attribute' => 'customer',
+                'value' => 'user.EMAIL' 
+            ],
+            // 'ID_SALE',
+            // 'ID_PROMOCION',
+            [
+                'attribute' => 'promotion',
+                'value' => 'promotion.CODE'  
+            ],
+            // 'ID_USER',
+            [
+                'attribute' => 'user',
+                'value' => 'user.USERNAME' 
+            ],
+            'CREATED_AT:date',
+            [
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, UserPromotion $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'ID' => $model->ID]);
                  }
