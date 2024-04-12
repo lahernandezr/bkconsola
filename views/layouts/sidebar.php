@@ -63,8 +63,8 @@ use yii\bootstrap4\Html;
                     'icon' => 'fas fa-ticket-alt',                 
                     'items' => [
                             ['label' => 'Activos', 'icon' => 'far fa-calendar-check', 'url' => ['promotion/index']],
-                            ['label' => 'Historico', 'icon' => 'far fa-calendar-alt', 'url' => ['promotion/history']],
-                            ['label' => 'Redencion', 'icon' => 'fas fa-receipt', 'url' => ['user-promotion/index']],
+                            ['label' => 'Inactivos', 'icon' => 'far fa-calendar-times', 'url' => ['promotion/history']],
+                            ['label' => 'Redención', 'icon' => 'fas fa-receipt', 'url' => ['user-promotion/index']],
                         ]
                     ],
                    [
