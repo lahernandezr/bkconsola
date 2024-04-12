@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `app_ads` (
   `LINK` text NOT NULL,
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `app_category` (
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_TAX` (`ID_TAX`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_category`
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `app_country` (
   `ISO3` varchar(3) NOT NULL,
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `app_country`
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `app_customer` (
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `USERNAME` (`USERNAME`,`EMAIL`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_customer`
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `app_customer_address` (
   `PHONE` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_USER` (`ID_USER`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `app_enterprise` (
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `CODE` (`CODE`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `app_enterprise`
@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `app_fiscal` (
   `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `app_gender` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `NAME` varchar(10) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_gender`
@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `app_global_config` (
   `VALUE` varchar(255) NOT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `app_global_config`
@@ -280,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `app_item` (
   KEY `ID_CATEGORY` (`ID_CATEGORY`),
   KEY `ID_TAX` (`ID_TAX`),
   KEY `ID_PARENT` (`ID_PARENT`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_item`
@@ -319,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `app_log` (
   `VALUE` varchar(255) NOT NULL,
   `CREATED_AT` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -356,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `app_promotion` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `CODE` (`CODE`,`ID_ITEM`),
   KEY `ID_TYPE_PROMOTION` (`ID_TYPE_PROMOTION`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_promotion`
@@ -386,7 +386,7 @@ CREATE TABLE IF NOT EXISTS `app_promotion_serial` (
   `INITIAL` int NOT NULL,
   `FINAL` int NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -400,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `app_rol` (
   `NAME` varchar(50) NOT NULL,
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_rol`
@@ -439,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `app_sale` (
   PRIMARY KEY (`ID`),
   KEY `ID_USER` (`ID_USER`,`ID_ADDRESS`),
   KEY `ID_USER_CONSOLE` (`ID_USER_CONSOLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -465,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `app_sale_item` (
   KEY `ID_CATEGORY` (`ID_CATEGORY`,`ID_ITEM`),
   KEY `ID_TAX` (`ID_TAX`),
   KEY `ID_SALE` (`ID_SALE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -483,7 +483,7 @@ CREATE TABLE IF NOT EXISTS `app_sale_payment` (
   `TOTAL` decimal(10,4) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ID_SALE` (`ID_SALE`,`TYPE_PAYMENT`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -500,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `app_sale_tax` (
   PRIMARY KEY (`ID`),
   KEY `ID_SALE` (`ID_SALE`),
   KEY `ID_TAX` (`ID_TAX`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -517,7 +517,7 @@ CREATE TABLE IF NOT EXISTS `app_store` (
   `DATA_JSON` text NOT NULL,
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -532,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `app_tax` (
   `PERCENT` decimal(3,2) NOT NULL,
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_tax`
@@ -553,7 +553,7 @@ CREATE TABLE IF NOT EXISTS `app_type_item` (
   `ID` varchar(1) NOT NULL,
   `NAME` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `app_type_item`
@@ -577,7 +577,7 @@ CREATE TABLE IF NOT EXISTS `app_type_payment` (
   `NAME` varchar(255) NOT NULL,
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_type_payment`
@@ -599,7 +599,7 @@ CREATE TABLE IF NOT EXISTS `app_type_promotion` (
   `NAME` varchar(100) NOT NULL,
   `ACTIVE` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_type_promotion`
@@ -640,7 +640,7 @@ CREATE TABLE IF NOT EXISTS `app_user` (
   UNIQUE KEY `USERNAME` (`USERNAME`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`),
   KEY `ID_ROL` (`ID_ROL`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_user`
@@ -673,7 +673,7 @@ CREATE TABLE IF NOT EXISTS `app_user_promotion` (
   KEY `ID_USER` (`ID_USER`),
   KEY `ID_SALE` (`ID_SALE`),
   KEY `ID_PROMOCION` (`ID_PROMOCION`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `app_user_promotion`
