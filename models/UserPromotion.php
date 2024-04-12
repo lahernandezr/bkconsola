@@ -47,6 +47,9 @@ class UserPromotion extends \yii\db\ActiveRecord
             'ID_PROMOCION' => 'Cupon',
             'ID_CUSTOMER' => 'Cliente',
             'CREATED_AT' => 'Fecha de Redencion',
+            'customer' => 'Cliente',
+            'user' => 'Usuario',
+            'promotion' => 'Cupón',
 
         ];
     }
