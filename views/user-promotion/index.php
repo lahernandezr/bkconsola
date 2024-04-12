@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'ID_CUSTOMER',
             [
                 'attribute' => 'customer',
-                'value' => 'user.EMAIL' 
+                'value' => 'customer.EMAIL' 
             ],
             // 'ID_SALE',
             // 'ID_PROMOCION',

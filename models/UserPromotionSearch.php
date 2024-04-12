@@ -87,7 +87,7 @@ class UserPromotionSearch extends UserPromotion
             // 'ID_SALE' => $this->ID_SALE,
             // 'ID_PROMOCION' => $this->ID_PROMOCION,
             // 'ID_USER' => $this->ID_USER,
-            'CREATED_AT' => $this->CREATED_AT,
+            'a1.CREATED_AT' => $this->CREATED_AT,
         ])->andFilterWhere(['like', 'app_customer.EMAIL', $this->customer])
         ->andFilterWhere(['like', 'app_user.USERNAME', $this->user])
         ->andFilterWhere(['like', 'app_promotion.CODE', $this->promotion]);
