@@ -60,7 +60,7 @@ class PromotionController extends Controller
     public function actionHistory()
     {
         $searchModel = new PromotionSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->searchInactive($this->request->queryParams);
 
 
 
@@ -187,8 +187,12 @@ class PromotionController extends Controller
      */
     public function actionDelete($ID)
     {
-        $this->findModel($ID)->delete();
+        // $this->findModel($ID)->delete();
+        // return $this->redirect(['index']);
 
+        $model = $this->findModel($ID);
+        $model->ACTIVE = false;
+        $model->save();
         return $this->redirect(['index']);
     }
 

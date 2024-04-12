@@ -48,7 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'CREATED_AT:date',
             [
+
                 'class' => ActionColumn::class,
+                'template' => '{view}',
                 'urlCreator' => function ($action, UserPromotion $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'ID' => $model->ID]);
                  }

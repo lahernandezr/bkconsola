@@ -96,7 +96,59 @@ class PromotionSearch extends Promotion
             // 'END' => $this->END,
             'LIMIT_EXCHANGE' => $this->LIMIT_EXCHANGE,
             'REDIMM' => $this->REDIMM,
-            'ACTIVE' => $this->ACTIVE,
+            'ACTIVE' => TRUE,
+        ]);
+
+        $query->andFilterWhere(['like', 'CODE', $this->CODE])
+            ->andFilterWhere(['like', 'NAME', $this->NAME])
+            ->andFilterWhere(['like', 'DESCRIPTION', $this->DESCRIPTION])
+            ->andFilterWhere(['like', 'ID_TYPE_PROMOTION', $this->ID_TYPE_PROMOTION])
+            ->andFilterWhere(['like', 'TYPE_DISC', $this->TYPE_DISC])
+            ->andFilterWhere(['like', 'IMAGE', $this->IMAGE])
+            ->andFilterWhere(['like', 'LINK', $this->LINK]);
+
+        return $dataProvider;
+    }
+
+    public function searchInactive($params)
+    {
+        $query = Promotion::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        if(!empty($this->created_at_range)) {
+            $fechas = explode(' - ', $this->created_at_range); 
+            if( (bool)strtotime($fechas[0]) && (bool)strtotime($fechas[1]) ){
+                $this->createTimeStart = $fechas[0];
+                $this->createTimeEnd = $fechas[1];
+            }
+        }
+
+        $query->andFilterWhere(['>=', 'END', $this->createTimeStart])
+        ->andFilterWhere(['<', 'END', $this->createTimeEnd]);
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'ID' => $this->ID,
+            'VALUE' => $this->VALUE,
+            'ID_ITEM' => $this->ID_ITEM,
+            // 'INIT' => $this->INIT,
+            // 'END' => $this->END,
+            'LIMIT_EXCHANGE' => $this->LIMIT_EXCHANGE,
+            'REDIMM' => $this->REDIMM,
+            'ACTIVE' => FALSE,
         ]);
 
         $query->andFilterWhere(['like', 'CODE', $this->CODE])
