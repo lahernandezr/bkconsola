@@ -34,6 +34,12 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl'=>['site/login'],
+            'authTimeout' => 300,
+            'identityCookie' => [
+                'name' => '_backendUserBkConsole', // unique for backend
+                'path'=>'@backend/web'  // correct path for the backend app.
+            ],            
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

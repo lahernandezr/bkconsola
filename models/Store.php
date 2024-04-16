@@ -32,7 +32,7 @@ class Store extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['NAME', 'ADDRESS', 'IMAGE', 'DATA_JSON'], 'required'],
+            [['NAME', 'ADDRESS'], 'required'],
             [['IMAGE', 'DATA_JSON'], 'string'],
             [['ACTIVE'], 'boolean'],
             [['NAME', 'ADDRESS'], 'string', 'max' => 255],
@@ -50,7 +50,7 @@ class Store extends \yii\db\ActiveRecord
             'NAME' => 'Nombre',
             'ADDRESS' => 'Dirección',
             'IMAGE' => 'Imagen',
-            'DATA_JSON' => 'Data Json',
+            'DATA_JSON' => 'Informacion Complementaria',
             'ACTIVE' => 'Activo',
             'file' => 'Photo',
         ];

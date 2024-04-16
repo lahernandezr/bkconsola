@@ -6,7 +6,7 @@ use yii\bootstrap4\Html;
 /* @var $model app\models\Store */
 
 $this->title = 'Crear Sucursal';
-$this->params['breadcrumbs'][] = ['label' => 'Stores', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Sucursales', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="store-create">

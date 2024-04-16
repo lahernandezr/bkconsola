@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="store-index">
 
     <p>
-        <?= Html::a('Crear Sucursal', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar Sucursal', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            /*
             [
                 'attribute' => 'IMAGE',
                 'format' => 'raw',
@@ -34,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img(yii\helpers\Url::to("../uploads/stores/".$model->IMAGE), ['height'=>'70px',]);
                 },
             ],
+            */
             // 'ID',
             'NAME',
             'ADDRESS',

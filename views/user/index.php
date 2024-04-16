@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">   
 
     <p>
-        <?= Html::a('Crear Usuario', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar Usuario', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -29,20 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',            
             'USERNAME',
-            [
-                'attribute' => 'ID_ROL',
-                'value' => 'rol.NAME',
-            ],
             'FULLNAME',   
             //'auth_key',
             //'password_hash',
             //'password_reset_token',
-            'EMAIL:email',
+            //'EMAIL:email',
             //'PHONE',
             //'ID_ROL',
             //'BITHDATE',
             //'IDENTIFICATION',
             //'IS_OTP:boolean',
+            [
+                'attribute' => 'ID_ROL',
+                'value' => 'rol.NAME',
+            ],
             'ACTIVE:boolean',
             //'created_at',
             //'updated_at',

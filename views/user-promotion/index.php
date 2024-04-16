@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'ID_PROMOCION',
             [
                 'attribute' => 'promotion',
-                'value' => 'promotion.CODE'  
+                'value' => 'promotion.NAME'  
             ],
             // 'ID_USER',
             [
