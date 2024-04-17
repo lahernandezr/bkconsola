@@ -14,9 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="store-view">
 
     <p>
-        <?= Html::a('Update', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'ID' => $model->ID], [
-            'class' => 'btn btn-danger',
+        <?= Html::a('Editar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('BORRAR', ['delete', 'ID' => $model->ID], [
+            'class' => 'btn btn-primary',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',

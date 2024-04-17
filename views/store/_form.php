@@ -24,13 +24,13 @@ use kartik\file\FileInput;
             <?= $form->field($model, 'ACTIVE')->checkbox() ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
         <div class="col-md-4">
 
             <?php if($this->context->action->id == 'update') : ?>
-            <?= $form->field($model, 'file')->widget(FileInput::classname(), [
+            <?= $form->field($model, 'file')->widget(FileInput::class, [
                 'options' => [
                     'accept' => 'image/*'
                 ],
@@ -46,7 +46,7 @@ use kartik\file\FileInput;
         <?php endif;?>
 
         <?php if($this->context->action->id == 'create') :?>
-            <?= $form->field($model, 'file')->widget(FileInput::classname(), [
+            <?= $form->field($model, 'file')->widget(FileInput::class, [
                 'options' => [
                     'accept' => 'image/*'
                 ],
