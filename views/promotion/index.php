@@ -7,6 +7,7 @@ use yii\grid\GridView;
 use app\models\Promotion;
 use kartik\daterange\DateRangePicker;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PromotionSearch */
@@ -24,66 +25,97 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php $gridColumns = [
+        ['class' => 'yii\grid\SerialColumn'],
+        [
+            'attribute' => 'IMAGE',
+            'format' => 'raw',
+            'headerOptions' => ['style' => 'width:90px; white-space:normal; word-break:break-word;'],
+            'value' => function($model){
+                return Html::img(yii\helpers\Url::to("../uploads/promos/".$model->IMAGE), ['height'=>'70px',]);
+            },
+        ],
+
+        // 'ID',
+        'CODE',
+        'NAME',
+        //'DESCRIPTION',
+        //'ID_TYPE_PROMOTION',
+        //'VALUE',
+        //'TYPE_DISC',
+        //'ID_ITEM',
+        //'INIT',
+        // 'END:datetime',
+        [
+            'attribute' => 'END',
+            'value' => 'END',
+            'format' => ['datetime', 'php:d-M-Y'],
+            'filter' =>
+            DateRangePicker::widget([
+                'model' => $searchModel,
+                'attribute' => 'created_at_range',
+                'convertFormat' => true,
+                'presetDropdown' => true,
+                'pluginOptions' => [
+                    'timePicker' => false,
+                    'locale' => [
+                        'format' => 'Y-m-d'
+                    ],
+                    'opens'=>'left'
+                ]
+            ])
+        ],
+        //'IMAGE:ntext',
+        //'LINK:ntext',
+        'LIMIT_EXCHANGE:decimal',
+        // 'REDIMM',
+        [
+            'attribute' => 'REDIMM',
+            'value' => 'calculateStock',
+            'format' => 'decimal',
+        ],
+        //'ACTIVE:boolean',
+        [
+            'class' => ActionColumn::class,
+            'urlCreator' => function ($action, Promotion $model, $key, $index, $column) {
+                return Url::toRoute([$action, 'ID' => $model->ID]);
+             }
+        ],
+        ] ?>
+
+    <?= ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'filename' => 'Clientes ' . date("d-M-Y H_i_s"),
+        'columnSelectorOptions'=>[ 'class' => 'btn btn-outline-secondary btn-default' ],
+        'exportConfig' => [
+            ExportMenu::FORMAT_HTML => false,
+            ExportMenu::FORMAT_TEXT => false,
+            ExportMenu::FORMAT_EXCEL => false,
+            ExportMenu::FORMAT_PDF => [
+                'pdfConfig' => [
+                    'methods' => [
+                        'SetTitle' => 'Cupones Activos',
+                        'SetSubject' => 'Burger King Colombia',
+                        'SetHeader' => ['Cupones Activos ||Generado en: ' . date("r")],
+                        'SetFooter' => ['|Pagina {PAGENO}|'],
+                        'SetAuthor' => 'Burger King Colombia',
+                        'SetCreator' => 'Burger King Colombia',
+                        'SetKeywords' => 'Burger, King, Colombia, PDF',
+                    ],
+                ],   
+            ],
+        ],
+        'dropdownOptions' => [
+            'label' => 'Exportar',
+            'class' => 'btn btn-outline-secondary btn-default'
+        ],
+    ]) . "<hr>\n"; ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'IMAGE',
-                'format' => 'raw',
-                'headerOptions' => ['style' => 'width:90px; white-space:normal; word-break:break-word;'],
-                'value' => function($model){
-                    return Html::img(yii\helpers\Url::to("../uploads/promos/".$model->IMAGE), ['height'=>'70px',]);
-                },
-            ],
-
-            // 'ID',
-            'CODE',
-            'NAME',
-            //'DESCRIPTION',
-            //'ID_TYPE_PROMOTION',
-            //'VALUE',
-            //'TYPE_DISC',
-            //'ID_ITEM',
-            //'INIT',
-            // 'END:datetime',
-            [
-                'attribute' => 'END',
-                'value' => 'END',
-                'format' => ['datetime', 'php:d-M-Y'],
-                'filter' =>
-                DateRangePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'created_at_range',
-                    'convertFormat' => true,
-                    'presetDropdown' => true,
-                    'pluginOptions' => [
-                        'timePicker' => false,
-                        'locale' => [
-                            'format' => 'Y-m-d'
-                        ],
-                        'opens'=>'left'
-                    ]
-                ])
-            ],
-            //'IMAGE:ntext',
-            //'LINK:ntext',
-            'LIMIT_EXCHANGE:decimal',
-            // 'REDIMM',
-            [
-                'attribute' => 'REDIMM',
-                'value' => 'calculateStock',
-                'format' => 'decimal',
-            ],
-            //'ACTIVE:boolean',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Promotion $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'ID' => $model->ID]);
-                 }
-            ],
-        ],
+        'columns' => $gridColumns,
     ]); ?>
 
 
