@@ -7,6 +7,7 @@ use app\models\EnterpriseSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * EnterpriseController implements the CRUD actions for Enterprise model.
@@ -20,7 +21,18 @@ class EnterpriseController extends Controller
     {
         return array_merge(
             parent::behaviors(),
+            
             [
+                'access' => [
+                    'class'=> AccessControl::class,
+                    'only' =>['index', 'view', 'create', 'update', 'delete'],
+                    'rules'=>[
+                        [
+                        'allow'=>true,
+                        'roles'=>['@']
+                        ],
+                    ]
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

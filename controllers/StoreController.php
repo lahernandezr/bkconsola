@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
+use yii\filters\AccessControl;
 
 /**
  * StoreController implements the CRUD actions for Store model.
@@ -22,6 +23,16 @@ class StoreController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class'=> AccessControl::class,
+                    'only' =>['index', 'view', 'create', 'update', 'delete'],
+                    'rules'=>[
+                        [
+                        'allow'=>true,
+                        'roles'=>['@']
+                        ],
+                    ]
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

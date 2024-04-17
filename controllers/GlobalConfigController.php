@@ -7,6 +7,7 @@ use app\models\GlobalConfigSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * GlobalConfigController implements the CRUD actions for GlobalConfig model.
@@ -21,6 +22,16 @@ class GlobalConfigController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class'=> AccessControl::class,
+                    'only' =>['index', 'view', 'create', 'update', 'delete'],
+                    'rules'=>[
+                        [
+                        'allow'=>true,
+                        'roles'=>['@']
+                        ],
+                    ]
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

@@ -12,6 +12,7 @@ use app\business\CuponBusiness;
 use app\business\CuponValidator;
 use yii\web\NotFoundHttpException;
 use app\models\UserPromotionSearch;
+use yii\filters\AccessControl;
 
 /**
  * UserPromotionController implements the CRUD actions for UserPromotion model.
@@ -26,6 +27,16 @@ class UserPromotionController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class'=> AccessControl::class,
+                    'only' =>['index', 'view', 'create', 'update', 'delete'],
+                    'rules'=>[
+                        [
+                        'allow'=>true,
+                        'roles'=>['@']
+                        ],
+                    ]
+                ],
                 'verbs' => [
                     'class' => VerbFilter::class,
                     'actions' => [
