@@ -1,14 +1,15 @@
 <?php
 
-use yii\bootstrap4\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
-use app\models\UserPromotion;
-use yii\helpers\ArrayHelper;
 use app\models\User;
+use yii\helpers\Url;
+use yii\grid\GridView;
 use Faker\Guesser\Name;
+use yii\bootstrap4\Html;
+use yii\grid\ActionColumn;
+use yii\helpers\ArrayHelper;
+use app\models\UserPromotion;
 use kartik\export\ExportMenu;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserPromotionSearch */
@@ -47,9 +48,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'filter' => Html::activeDropDownList($searchModel, 'ID_USER', ArrayHelper::map(User::find()->asArray()->all(), 'ID', 'USERNAME'),['class'=>'form-control','prompt' => 'Selecciones la línea']),
         ],
 
-        'CREATED_AT:date',
+        //'CREATED_AT:date',
         [
-
+            'attribute' => 'CREATED_AT',
+            'value' => 'CREATED_AT',
+            'format' => ['datetime', 'php:d-M-Y'],
+            'filter' =>
+            DateRangePicker::widget([
+                'model' => $searchModel,
+                'attribute' => 'created_at_range',
+                'convertFormat' => true,
+                'presetDropdown' => true,
+                'pluginOptions' => [
+                    'timePicker' => false,
+                    'locale' => [
+                        'format' => 'Y-m-d'
+                    ],
+                    'opens'=>'left'
+                ]
+            ])
+        ],        
+        [  
             'class' => ActionColumn::class,
             'template' => '{view}',
             'urlCreator' => function ($action, UserPromotion $model, $key, $index, $column) {

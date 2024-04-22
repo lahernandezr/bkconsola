@@ -1,28 +1,34 @@
 <?php
 
-use app\assets\ChartJSAsset;
-use app\models\Customer;
-use app\models\Enterprise;
-use app\models\Promotion;
-use app\models\Sale;
-use practically\chartjs\Chart;
 use app\models\Item;
+use app\models\Sale;
+use app\models\Customer;
+use app\utils\DateUtils;
+use app\models\Promotion;
+use app\models\Enterprise;
+use app\assets\ChartJSAsset;
 use app\models\UserPromotion;
+use practically\chartjs\Chart;
 
 Yii::$app->language='es';
 ChartJSAsset::register($this);
+$dateUtils = new DateUtils();
+$formatter = \Yii::$app->formatter;
 
-$this->title = 'Panel de Control';
+$weeksDate = $dateUtils->init_end_weeks_days(date("Y-m-d"));
+$this->title = 'Panel de Control del '.$formatter->asDate($weeksDate["fechaInicio"])." al ".$formatter->asDate($weeksDate["fechaFin"]);
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 
-$formatter = \Yii::$app->formatter;
-$sales = Sale::find()->where(['>', 'CREATED_AT', date('Y-m-d 00:00:00')])->sum('TOTAL');
-$salesCount = Sale::find()->where(['>', 'CREATED_AT', date('Y-m-d 00:00:00')])->count();
+
+
+
+$sales = Sale::find()->where(['>', 'CREATED_AT',$weeksDate["fechaInicio"].' 00:00:00'])->andWhere(['<', 'CREATED_AT', $weeksDate["fechaFin"].' 23:59:59'])->sum('TOTAL');
+$salesCount = Sale::find()->where(['>', 'CREATED_AT',$weeksDate["fechaInicio"].' 00:00:00'])->andWhere(['<', 'CREATED_AT', $weeksDate["fechaFin"].' 23:59:59'])->count();
 $promos = Promotion::find()->where(['=', 'ACTIVE', true])->count();
 $user = Customer::find()->where(['=', 'ACTIVE', true])->count();
 
 
-$redeems = UserPromotion::find()->count();
+$redeems = UserPromotion::find()->where(['>', 'CREATED_AT',$weeksDate["fechaInicio"].' 00:00:00'])->andWhere(['<', 'CREATED_AT', $weeksDate["fechaFin"].' 23:59:59'])->count();
 $activePromos = Promotion::find()->where(['=', 'ACTIVE', true])->count();
 $customers = Customer::find()->where(['=', 'ACTIVE', true])->count();
 $companies = Enterprise::find()->where(['=', 'ACTIVE', true])->count();
@@ -144,7 +150,7 @@ $companies = Enterprise::find()->where(['=', 'ACTIVE', true])->count();
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Online Store Visitors</h3>
+                        <h3 class="card-title">Total de Redemciones</h3>
                         <a href="javascript:void(0);">Ver Reporte</a>
                     </div>
                 </div>
@@ -175,10 +181,11 @@ $companies = Enterprise::find()->where(['=', 'ACTIVE', true])->count();
                             'type' => Chart::TYPE_BAR,
                             'datasets' => [
                                 [
-                                    'query' => Item::find()
+                                    'query' => UserPromotion::find()
                                         ->select('ID')
-                                        ->addSelect('count(*) as data')
-                                        ->groupBy('ID_CATEGORY')
+                                        ->addSelect('count(*) as data')         
+                                        ->groupBy('ID_PROMOCION')
+                                        ->groupBy('CREATED_AT')
                                         ->createCommand(),
                                     'labelAttribute' => 'NAME'
                                 ]
@@ -202,7 +209,7 @@ $companies = Enterprise::find()->where(['=', 'ACTIVE', true])->count();
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header border-0">
-                    <h3 class="card-title">Products</h3>
+                    <h3 class="card-title">Cupones de la Semana</h3>
                     <div class="card-tools">
                         <a href="#" class="btn btn-tool btn-sm">
                             <i class="fas fa-download"></i>

@@ -26,7 +26,7 @@ class CustomerSearch extends Customer
                 'dateEndAttribute' => 'createTimeEnd',
             ]
         ];
-     }
+    }
 
     /**
      * {@inheritdoc}

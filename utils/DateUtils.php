@@ -21,7 +21,24 @@ class DateUtils
 
         }
     }
+    public function init_end_weeks_days($fecha){
 
+        $diaInicio="Monday";
+        $diaFin="Sunday";
+    
+        $strFecha = strtotime($fecha);
+    
+        $fechaInicio = date('Y-m-d',strtotime('last '.$diaInicio,$strFecha));
+        $fechaFin = date('Y-m-d',strtotime('next '.$diaFin,$strFecha));
+    
+        if(date("l",$strFecha)==$diaInicio){
+            $fechaInicio= date("Y-m-d",$strFecha);
+        }
+        if(date("l",$strFecha)==$diaFin){
+            $fechaFin= date("Y-m-d",$strFecha);
+        }
+        return Array("fechaInicio"=>$fechaInicio,"fechaFin"=>$fechaFin);
+    }
 }
 
 ?>

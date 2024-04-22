@@ -3,8 +3,9 @@
 namespace app\models;
 
 use yii\base\Model;
-use yii\data\ActiveDataProvider;
 use app\models\UserPromotion;
+use yii\data\ActiveDataProvider;
+use kartik\daterange\DateRangeBehavior;
 
 /**
  * UserPromotionSearch represents the model behind the search form of `app\models\UserPromotion`.
@@ -14,6 +15,21 @@ class UserPromotionSearch extends UserPromotion
     public $customer;
     public $user;
     public $promotion;
+    public $created_at_range;
+    public $createTimeStart;
+    public $createTimeEnd;
+    
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => DateRangeBehavior::className(), 
+                'attribute' => 'created_at_range',
+                'dateStartAttribute' => 'createTimeStart',
+                'dateEndAttribute' => 'createTimeEnd',
+            ]
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -23,6 +39,7 @@ class UserPromotionSearch extends UserPromotion
         return [
             [['ID', 'ID_USER', 'ID_SALE', 'ID_PROMOCION', 'ID_CUSTOMER'], 'integer'],
             [['CREATED_AT','customer', 'user', 'promotion'], 'safe'],
+            [['created_at_range'], 'safe'],
         ];
     }
 
@@ -67,6 +84,19 @@ class UserPromotionSearch extends UserPromotion
             'asc' => ['app_promotion.CODE' => SORT_ASC],
             'desc' => ['app_promotion.CODE' => SORT_DESC],
         ];
+
+        
+        //Convierte la cadena en un arreglo con las dos fechas
+        if(!empty($this->created_at_range)) {
+            $fechas = explode(' - ', $this->created_at_range); 
+            if( (bool)strtotime($fechas[0]) && (bool)strtotime($fechas[1]) ){
+                $this->createTimeStart = $fechas[0];
+                $this->createTimeEnd = $fechas[1];
+            }
+        }
+        
+        $query->andFilterWhere(['>=', 'CREATED_AT', $this->createTimeStart])
+        ->andFilterWhere(['<', 'CREATED_AT', $this->createTimeEnd]);
 
         // $this->load($params);
 
